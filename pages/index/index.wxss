@@ -12,7 +12,7 @@
   display: inline-block;
   width: 94%;
   margin-bottom: 10%;
-  border: 1px solid #ddd;
+  border: 1px solid #093D51;
   border-radius: 10px;
   padding: 4%;
   padding-top: 5%;
@@ -21,6 +21,7 @@
 }
 
 .book-image {
-  width:95%;
+  width:50%;
+  height: 230rpx;
   margin:0 auto;
 }

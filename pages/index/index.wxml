@@ -9,7 +9,6 @@
 
     <image class="book-image"
       mode="aspectFit"
-      style="width: 200rpx; height: 300rpx;"
       src="../../lib/image/{{book.image}}.jpg">
     </image>
 

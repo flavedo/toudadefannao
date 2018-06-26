@@ -1,4 +1,8 @@
+const { historyBookData } = require('../lib/data/history.js')
 const { lawBookData } = require('../lib/data/law.js')
+const { maoBookData } = require('../lib/data/mao.js')
+const { marxBookData } = require('../lib/data/marx.js')
+const { moralBookData } = require('../lib/data/moral.js')
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -16,24 +20,72 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const subjectComp = function (a, b) {
+  let val1 = parseInt(a.questionNum);
+  let val2 = parseInt(b.questionNum);
+  if (val1 < val2) {
+    return -1;
+  } else if (val1 > val2) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 const loadBook = book => new Promise((resolve, reject) => {
   try {
-    console.log(book)
-    switch(book) {
-      case 'marx': 
-        resolve(lawBookData())
+    console.log("loadbook:" + book)
+    let subjects
+    switch (book) {
+      case 'marx':
+        subjects = marxBookData().sort(subjectComp)
+        resolve(subjects)
+        break
+      case 'law':
+        subjects = lawBookData().sort(subjectComp)
+        resolve(subjects)
+        break
+      case 'history':
+        subjects = historyBookData().sort(subjectComp)
+        resolve(subjects)
+        break
+      case 'mao':
+        subjects = maoBookData().sort(subjectComp)
+        resolve(subjects)
+        break
+      case 'moral':
+        subjects = moralBookData().sort(subjectComp)
+        resolve(subjects)
         break
       default:
         reject()
         break;
     }
-  } catch(e) {
-    console.log("error")
+  } catch (e) {
+    console.log('error')
     reject(e)
   }
 })
 
+const getBookName = book => {
+  switch (book) {
+    case 'marx':
+      return '马克思主义'
+    case 'law':
+      return '法律基础'
+    case 'history':
+      return '近代史纲要'
+    case 'mao':
+      return '毛泽东思想'
+    case 'moral':
+      return '道德基础'
+    default:
+      return ''
+  }
+}
+
 module.exports = {
   formatTime,
-  loadBook
+  loadBook,
+  getBookName
 }

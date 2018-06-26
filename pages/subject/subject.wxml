@@ -1,2 +1,5 @@
-<!--pages/subject/subject.wxml-->
-<text>pages/subject/subject.wxml</text>
+
+
+<view class="container" bindtouchstart="touchStart" bindtouchend="touchEnd">
+   {{ subject.question }}
+</view>

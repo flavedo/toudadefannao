@@ -36,10 +36,10 @@ Page({
   },
 
   tapbook: function(e) {
-    console.log(e.currentTarget.dataset.book)
+    console.log("click: " + e.currentTarget.dataset.book)
     let bookType = e.currentTarget.dataset.book
     wx.navigateTo({
-      url: "../../pages/subject/subject?book=" + bookType
+      url: "../../pages/subject/subject?bookType=" + bookType
     })
   },
 
