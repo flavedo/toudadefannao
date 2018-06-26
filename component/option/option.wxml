@@ -1,0 +1,5 @@
+
+<view>
+  <view>{{ word }}</view>
+  <view>{{ question }}</view>
+</view>

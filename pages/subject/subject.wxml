@@ -1,5 +1,32 @@
-
-
 <view class="container" bindtouchstart="touchStart" bindtouchend="touchEnd">
-   {{ subject.question }}
+   <view class="top"> 
+      <view class="top-rank"> 第 {{ rank }} 阶段 </view>
+      <view class="top-num"> {{ num }}</view>
+      <view class="top-rankcount">{{ rankcount }}</view>
+   </view>
+
+   <view class="question-type">
+      <view wx:if="{{ (subject.questionType == 1) }}">(单选题)</view>
+      <view wx:if="{{ (subject.questionType == 2) }}">(判断题)</view>
+      <view wx:if="{{ (subject.questionType == 3) }}">(多选题)</view>
+   </view>
+
+   <view>"{{ subject.questionNum }}"</view>
+   <view class="question">{{ subject.question }}</view>
+   <view class="options">
+    <view wx:if="{{ subject.options.length > 0 }}"  bindtap="tapOptionA" >
+      <option id="optionA" question="{{ subject.options[0] }}" word="A"></option>
+    </view>
+    <view wx:if="{{ subject.options.length > 1 }}"  bindtap="tapOptionB" >
+      <option id="optionB" question="{{ subject.options[1] }}" word="B"></option>
+    </view>
+    <view wx:if="{{ subject.options.length > 2 }}"  bindtap="tapOptionA" >
+      <option id="optionC" question="{{ subject.options[2] }}" word="C"></option>
+    </view>
+    <view wx:if="{{ subject.options.length > 3 }}"  bindtap="tapOptionD" >
+      <option id="optionD" question="{{ subject.options[3] }}" word="D"></option>
+    </view>
+   </view>
+
+   <button wx:if="{{ (subject.questionType == 3) }}" class="commit" >提交</button>
 </view>

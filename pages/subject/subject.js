@@ -4,17 +4,20 @@ const { loadBook, getBookName } = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
-var interval = "" // 记录/清理 时间记录
+var interval = '' // 记录/清理 时间记录
 
 Page({
 
   data: {
-    bookName: "",
-    subject: {}
+    bookName: '',
+    subject: {},
+    rank: 1,
+    num: 1,
+    rankcount: 1
   },
 
   $data: {
-    bookType: "",
+    bookType: '',
     page: 0,
     isDatiModel: true,
   },
@@ -37,7 +40,7 @@ Page({
     } else {
       wx.showLoading({ title: '正在加载' })
       loadBook(this.$data.bookType).then(subjects => {
-        app.globalData.bookData[this.$data.bookType] = subjects
+        app.globalData.bookData[this.$data.bookType] = subjects.splice(0, 25)
         wx.hideLoading()
         this.loadPage()
       }).catch(code => {
@@ -48,15 +51,39 @@ Page({
   },
 
   loadPage: function () {
+    console.log(this.$data.page)
     let bookData = app.globalData.bookData[this.$data.bookType]
     if (this.$data.page >= 0 && this.$data.page < bookData.length) {
+      let rank = parseInt(this.$data.page / 10) + 1
+      let subject = bookData[this.$data.page]
+      let num = this.$data.page % 10 + 1
+      let rankcount = this.$data.page <= (parseInt(bookData.length / 10) * 10) ? 10 : (bookData.length % 10)
       this.setData({
-        subject: bookData[this.$data.page]
+        subject,
+        rank,
+        num,
+        rankcount
       })
     }
   },
 
   onShareAppMessage: function () {
+
+  },
+
+  tapOptionA: function() {
+
+  },
+
+  tapOptionB: function () {
+
+  },
+
+  tapOptionC: function () {
+
+  },
+
+  tapOptionD: function () {
 
   },
 
@@ -74,6 +101,7 @@ Page({
     var moveIndex = e.currentTarget.dataset.tab;
     // 向左滑动 
     if (touchMove - touchDot <= -40 && time < 10) {
+      console.log('左边')
       let page = this.$data.page + 1
       let bookData = app.globalData.bookData[this.$data.bookType]
       if(page < bookData.length) {
@@ -89,6 +117,7 @@ Page({
     }
     // 向右滑动 
     if (touchMove - touchDot >= 40 && time < 10) {
+      console.log('右边')      
       let page = this.$data.page - 1
       if (page >= 0) {
         this.$data.page = page

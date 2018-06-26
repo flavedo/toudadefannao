@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "option": "/component/option/option"
+  }
+}
