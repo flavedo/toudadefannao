@@ -1,0 +1,26 @@
+/**index.wxss**/
+
+.top {
+  width:94%;
+  column-count:2;
+  margin-top: 3%;
+  padding-left: 2%;
+  padding-right: 2%; 
+}
+
+.books {
+  display: inline-block;
+  width: 94%;
+  margin-bottom: 10%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 4%;
+  padding-top: 5%;
+  margin-right: 2%;
+  text-align: center;
+}
+
+.book-image {
+  width:95%;
+  margin:0 auto;
+}

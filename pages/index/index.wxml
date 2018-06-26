@@ -1,0 +1,18 @@
+<view class="top">
+
+  <view class="books" 
+    wx:for="{{ books }}"
+    wx:for-item="book"
+    wx:key='{{ book.key }}'
+    bindtap='tapbook'
+    data-book="{{ book.bookType }}">
+
+    <image class="book-image"
+      mode="aspectFit"
+      style="width: 200rpx; height: 300rpx;"
+      src="../../lib/image/{{book.image}}.jpg">
+    </image>
+
+    <view> {{book.name}} </view>
+  </view>
+</view>
