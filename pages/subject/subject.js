@@ -10,7 +10,6 @@ var switchInterval = '' // 记录/清理 切页记录
 Page({
 
   data: {
-    bookName: '',
     isDatiModel: true,
     subject: {},
     rank: 1,
@@ -40,8 +39,8 @@ Page({
   },
 
   setBookName: function () {
-    this.setData({
-      bookName: getBookName(this.$data.bookType)
+    wx.setNavigationBarTitle({
+      title: getBookName(this.$data.bookType)
     })
   },
 
@@ -336,7 +335,7 @@ Page({
         that.$data.page = page
         that.loadPage()
         clearInterval(switchInterval)
-      }, 300)
+      }, 500)
     }
   },
 
@@ -419,7 +418,7 @@ Page({
         wx.showToast({
           title: '没有了更多！',
           icon: 'none',
-          duration: 300
+          duration: 500
         })
       }
     }
@@ -434,7 +433,7 @@ Page({
         wx.showToast({
           title: '没有了更多！',
           icon: 'none',
-          duration: 300
+          duration: 500
         })
       }
     }

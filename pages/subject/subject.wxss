@@ -89,7 +89,7 @@
   .question-type {
     float:left;
     margin-right: 10rpx;
-    font-size: 38rpx;
+    font-size: 35rpx;
     color: #4675F9;
     line-height: 50rpx;
   }
