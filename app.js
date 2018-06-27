@@ -35,7 +35,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    bookData: {}
+    userInfo: null
   }
 })

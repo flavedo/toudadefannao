@@ -1,6 +1,151 @@
 /* pages/subject/subject.wxss */
-.container {
-  display: flex;
-  width: 100%;
+.tip {
+  position: fixed;
   height: 100%;
-}
+  width: 100%;
+  overflow-x: hidden;
+  }
+
+.model{
+  height: 60rpx;
+  width: 100%; 
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 60rpx;
+  background: #F7F7F7; 
+  font-size: 14px;
+  white-space: nowrap;
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  z-index: 99;
+  }
+  
+.model-item{
+  width: 50%;
+  display: inline-block;
+  text-align:center;
+  }
+  
+.model-item.active{
+  color: #4675F9;
+  position: relative;
+  }
+  
+.model-item.active:after{ 
+  content: "";
+  display: block;
+  height: 6rpx;
+  width: 20%;
+  background: #4675F9;
+  position: absolute; 
+  bottom: 0;
+  left: 40%;
+  border-radius: 16rpx;
+  }
+
+  .tip-top { 
+    margin: 80rpx 20rpx 20rpx 20rpx;
+	  width: 100%;
+    }
+  
+  .top-rank {
+	  display: inline-block;
+	  text-align:center;
+    font-size: 32rpx;
+  }
+
+  .top-right {
+    float: right;
+    width: 140rpx;
+  }
+
+  .top-num {
+	  display: inline-block;
+	  text-align:center;
+    font-size: 32rpx;
+    color: #4675F9;
+  }
+  
+  .top-sep {
+    display: inline-block;
+	  text-align:center;
+    font-size: 30rpx;
+    margin-left: 5rpx;
+    margin-right: 5rpx;
+  }
+
+  .top-rankcount {
+	  display: inline-block;
+	  text-align:center;
+    font-size: 32rpx;
+  }
+  
+  .question{
+	  width: 95%;
+    margin: 15rpx;
+  }
+
+  .question-type {
+    float:left;
+    margin-right: 10rpx;
+    font-size: 38rpx;
+    color: #4675F9;
+    line-height: 50rpx;
+  }
+
+  .question-content {
+    width: 100%;
+    font-size: 35rpx;
+    line-height: 50rpx;
+    word-wrap: break-word;
+  }
+  
+  .options {
+	  width: 100%;
+  }
+
+  .commit {
+    background: #4675F9;
+    width: 80%;
+    height: 100rpx;
+    border: none;
+    padding: 0;
+    color: #F7F7F7;
+    font-size: 35rpx;
+    border-radius: 20;
+    margin-top: 50rpx; 
+    margin-bottom: 130rpx; 
+  }
+
+  .answser-result {
+    margin: 50rpx 30rpx 130rpx 30rpx; 
+  }
+  
+  .answser-tip {
+    color: #000;
+    font-size: 32rpx;
+    margin-top: 20rpx; 
+    line-height: 50rpx;
+  }
+
+  .user-answer {
+    color: #000;
+    font-size: 32rpx;
+    margin-top: 15rpx; 
+    line-height: 50rpx;
+  }
+
+  .right-answer {
+    color: #4675F9;
+    font-size: 32rpx;
+    margin-top: 15rpx; 
+    line-height: 50rpx;
+  }
+    /* width: 100%;
+    height: 100rpx;
+    background-color: #FFFFFF;
+    position:fixed;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%); */

@@ -39,11 +39,21 @@ Page({
     console.log("click: " + e.currentTarget.dataset.book)
     let bookType = e.currentTarget.dataset.book
     wx.navigateTo({
-      url: "../../pages/subject/subject?bookType=" + bookType
+      url: "../../pages/type/type?bookType=" + bookType
     })
   },
 
   onShareAppMessage: function () {
-
-  }
+    return {
+      title: '头大的烦恼',
+      path: '/pages/index/index',
+      desc: '社科刷题小程序',
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+  },
 })

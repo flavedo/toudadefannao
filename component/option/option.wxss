@@ -1,1 +1,18 @@
-/* component/option/option.wxss */
+.container {
+  width: 95%;
+  padding: 20rpx;
+  min-height: 90rpx;
+}
+
+.option-image {
+  float: left;
+  width: 50rpx;
+  height:50rpx;
+  margin-right: 20rpx; 
+}
+
+.option-content {
+  vertical-align: middle;
+  font-size: 35rpx;
+  line-height: 50rpx;
+}

@@ -32,11 +32,11 @@ const subjectComp = function (a, b) {
   }
 }
 
-const loadBook = book => new Promise((resolve, reject) => {
+const loadBook = (bookType) => new Promise((resolve, reject) => {
   try {
-    console.log("loadbook:" + book)
+    console.log("loadbook:" + bookType)
     let subjects
-    switch (book) {
+    switch (bookType) {
       case 'marx':
         subjects = marxBookData().sort(subjectComp)
         resolve(subjects)
@@ -67,6 +67,46 @@ const loadBook = book => new Promise((resolve, reject) => {
   }
 })
 
+// all、single、multi、judge、
+const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) => {
+  console.log(subjectType)
+  loadBook(bookType).then(subjects => {
+    switch(subjectType) {
+      case 'all':
+        resolve(subjects)
+        break
+      case 'single':
+        resolve(subjects.filter(item =>{
+          return item.questionType == 1
+        }))
+        break
+      case 'judge': 
+        resolve(subjects.filter(item => {
+          return item.questionType == 2
+        }))
+        break
+      case 'multi':
+        resolve(subjects.filter(item => {
+          return item.questionType == 3
+        }))
+        break
+      default:
+        resolve(subjects)
+        break
+    }
+  }).catch(e => {
+    reject(e)
+  })
+})
+
+const storeSubjectDone = (bookType, subjectType, page) => {
+	wx.setStorageSync(bookType + '-' + subjectType, page)
+}
+
+const getSubjectDone = (bookType, subjectType) => {
+	return parseInt(wx.getStorageSync(bookType + '-' + subjectType))
+}
+
 const getBookName = book => {
   switch (book) {
     case 'marx':
@@ -86,6 +126,9 @@ const getBookName = book => {
 
 module.exports = {
   formatTime,
+  loadTypeBook,
   loadBook,
-  getBookName
+  getBookName,
+  storeSubjectDone,
+  getSubjectDone
 }

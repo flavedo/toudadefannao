@@ -21,13 +21,30 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "subject",
+					"pathName": "pages/subject/subject",
+					"query": "bookType=mao&subjectType=multi"
+				},
+				{
+					"id": -1,
+					"name": "subject",
+					"pathName": "pages/type/type",
+					"query": "bookType=mao"
+				}
+			]
 		}
 	}
 }

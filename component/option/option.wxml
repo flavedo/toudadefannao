@@ -1,5 +1,19 @@
 
-<view>
-  <view>{{ word }}</view>
-  <view>{{ question }}</view>
+<view class="container">
+  <image wx:if="{{ isShow }}" class="option-image" mode="aspectFit"
+    src="../../lib/image/option/show-{{ word }}.png">
+  </image>
+  <image wx:if="{{ isSelect }}" class="option-image" mode="aspectFit"
+    src="../../lib/image/option/select-{{ word }}.png">
+  </image>
+    <image wx:if="{{ isRight }}" class="option-image" mode="aspectFit"
+    src="../../lib/image/option/right-{{ word }}.png">
+  </image>
+    <image wx:if="{{ isRightResult }}" class="option-image" mode="aspectFit"
+    src="../../lib/image/option/right.png">
+  </image>
+    <image wx:if="{{ isWrongResult }}" class="option-image" mode="aspectFit"
+    src="../../lib/image/option/wrong.png">
+  </image>
+  <view class="option-content">{{ question }}</view>
 </view>

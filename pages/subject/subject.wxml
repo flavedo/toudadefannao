@@ -1,32 +1,62 @@
-<view class="container" bindtouchstart="touchStart" bindtouchend="touchEnd">
-   <view class="top"> 
+<view class="tip" bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <scroll-view class="model">
+        <view class="model-item {{ isDatiModel ?'active':'' }}" bindtap="tapDati">答题模式</view>
+        <view class="model-item {{ !isDatiModel ?'active':'' }}" bindtap="tapBeiti">背题模式</view>
+    </scroll-view>
+   
+   <view class="tip-top"> 
       <view class="top-rank"> 第 {{ rank }} 阶段 </view>
-      <view class="top-num"> {{ num }}</view>
-      <view class="top-rankcount">{{ rankcount }}</view>
+      <view class="top-right">
+        <view class="top-num"> {{ num }}</view>
+        <view class="top-sep"> | </view>
+        <view class="top-rankcount">{{ rankcount }}</view>
+      </view>
    </view>
-
-   <view class="question-type">
-      <view wx:if="{{ (subject.questionType == 1) }}">(单选题)</view>
-      <view wx:if="{{ (subject.questionType == 2) }}">(判断题)</view>
-      <view wx:if="{{ (subject.questionType == 3) }}">(多选题)</view>
+   
+   <view class="question">
+     <view class="question-type">
+        <view wx:if="{{ (subject.questionType == 1) }}">(单选题)</view>
+        <view wx:if="{{ (subject.questionType == 2) }}">(判断题)</view>
+        <view wx:if="{{ (subject.questionType == 3) }}">(多选题)</view>
+    </view>
+     <view class="question-content">{{ subject.question }}</view>
    </view>
-
-   <view>"{{ subject.questionNum }}"</view>
-   <view class="question">{{ subject.question }}</view>
+  
+   
    <view class="options">
-    <view wx:if="{{ subject.options.length > 0 }}"  bindtap="tapOptionA" >
-      <option id="optionA" question="{{ subject.options[0] }}" word="A"></option>
-    </view>
-    <view wx:if="{{ subject.options.length > 1 }}"  bindtap="tapOptionB" >
-      <option id="optionB" question="{{ subject.options[1] }}" word="B"></option>
-    </view>
-    <view wx:if="{{ subject.options.length > 2 }}"  bindtap="tapOptionA" >
-      <option id="optionC" question="{{ subject.options[2] }}" word="C"></option>
-    </view>
-    <view wx:if="{{ subject.options.length > 3 }}"  bindtap="tapOptionD" >
-      <option id="optionD" question="{{ subject.options[3] }}" word="D"></option>
-    </view>
+    <option wx:if="{{ subject.options.length > 0 }}"
+       id="optionA" 
+       question="{{ subject.options[0] }}" 
+       word="A"
+       bindtap="tapOptionA">
+    </option>
+        <option wx:if="{{ subject.options.length > 1 }}"
+       id="optionB" 
+       question="{{ subject.options[1] }}" 
+       word="B"
+       bindtap="tapOptionB">
+    </option>
+        <option wx:if="{{ subject.options.length > 2 }}"
+       id="optionC" 
+       question="{{ subject.options[2] }}" 
+       word="C"
+       bindtap="tapOptionC">
+    </option>
+    <option wx:if="{{ subject.options.length > 3 }}"
+       id="optionD" 
+       question="{{ subject.options[3] }}" 
+       word="D"
+       bindtap="tapOptionD">
+    </option>
    </view>
+   
+  <button wx:if="{{ showCommitBtn }}"
+    class="commit" bindtap="tapCommit">提交</button>
 
-   <button wx:if="{{ (subject.questionType == 3) }}" class="commit" >提交</button>
+  <view class='answser-result'> 
+    <view wx:if='{{ isDatiModel && rightAnswerTip }}' class='answser-tip'> 很棒棒，这道题你答对了!</view>
+    <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='answser-tip'> 很遗憾，这道题你答错了!</view> 
+    <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='user-answer' > 你的答案是 : {{ userAnswer }} </view>
+    <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='right-answer' > 正确答案是 : {{ rightAnswer }} </view>
+  </view>
 </view>

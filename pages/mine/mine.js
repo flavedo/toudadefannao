@@ -47,5 +47,18 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '头大的烦恼',
+      path: '/pages/index/index',
+      desc: '社科刷题小程序',
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+  },
 })
