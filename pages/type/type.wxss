@@ -5,16 +5,17 @@
 .tip-item {
   height: 200rpx;
   width: 200rpx;
-  margin-left: auto; 
-  margin-right: auto;
-  margin-top: 50rpx;
-  text-align: center; 
   border: 2px solid #093D51;
-  border-radius: 50%;   
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50rpx; 
 }
 
 .tip-text {
   font-size: 40rpx;
   color: #093D51;
-  margin-top: 70rpx;
 }

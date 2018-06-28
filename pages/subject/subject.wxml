@@ -59,4 +59,15 @@
     <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='user-answer' > 你的答案是 : {{ userAnswer }} </view>
     <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='right-answer' > 正确答案是 : {{ rightAnswer }} </view>
   </view>
+
+  <view class='bottom'>
+    <view class='bottom-collect' bindtap='tapCollect'> 
+      <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-no.png" ></image>
+      <view class='collect-text'>收藏</view>
+    </view>
+    <view class='bottom-sheet' bindtap='tapSheet'> 
+      <image class='sheet-image' mode="aspectFit" src="../../lib/image/collect-no.png" ></image>
+      <view class='sheet-text'>答题卡</view>
+    </view>    
+  </view>
 </view>

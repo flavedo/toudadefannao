@@ -1,6 +1,6 @@
 // pages/subject/subject.js
 
-const { loadTypeBook, getBookName, storeSubjectDone, getSubjectDone } = require('../../utils/util.js')
+const { loadTypeBook, getBookName, storeSubjectDone, getSubjectDone, getShareInfo } = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -112,17 +112,7 @@ Page({
   },
 
   onShareAppMessage: function () {
-    return {
-      title: '头大的烦恼',
-      path: '/pages/index/index',
-      desc: '社科刷题小程序',
-      success: (res) => {
-        console.log("转发成功", res);
-      },
-      fail: (res) => {
-        console.log("转发失败", res);
-      }
-    }
+    return getShareInfo()
   },
 
   tapOptionA: function () {
@@ -383,6 +373,7 @@ Page({
     this.setData({ showCommitBtn: false })
   },
 
+
   recoverOptions: function () {
     let optionA = this.selectComponent("#optionA");
     if (optionA != null) { optionA.showOption() }
@@ -392,6 +383,22 @@ Page({
     if (optionC != null) { optionC.showOption() }
     let optionD = this.selectComponent("#optionD");
     if (optionD != null) { optionD.showOption() }
+  },
+
+  tapCollect: function() {
+    wx.showToast({
+      title: '这个功能还未开发完成！',
+      icon: 'none',
+      duration: 800
+    })
+  },
+
+  tapSheet: function() {
+    wx.showToast({
+      title: '这个功能还未开发完成！',
+      icon: 'none',
+      duration: 800
+    })
   },
 
   touchStart: function (e) {

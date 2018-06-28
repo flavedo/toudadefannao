@@ -124,11 +124,33 @@ const getBookName = book => {
   }
 }
 
+const getShareInfo = () => {
+  let shareInfo = [
+    "来看看这道为什么选这个?",
+    "快来使用头大的社科小程序",
+    "头大的烦恼值得信赖",
+    "有什么意见尽管提"
+  ]
+  let randomNum = Math.floor(Math.random() * shareInfo.length + 1)
+  return {
+    title: shareInfo[randomNum],
+    path: '/pages/index/index',
+    desc: '社科刷题小程序',
+    success: (res) => {
+      console.log("转发成功", res);
+    },
+    fail: (res) => {
+      console.log("转发失败", res);
+    }
+  }
+}
+
 module.exports = {
   formatTime,
   loadTypeBook,
   loadBook,
   getBookName,
   storeSubjectDone,
-  getSubjectDone
+  getSubjectDone,
+  getShareInfo
 }
