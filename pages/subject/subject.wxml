@@ -60,6 +60,8 @@
     <view wx:if='{{ isDatiModel && wrongAnswerTip }}' class='right-answer' > 正确答案是 : {{ rightAnswer }} </view>
   </view>
 
+</view>
+
   <view class='bottom'>
     <view class='bottom-collect' bindtap='tapCollect'> 
       <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-no.png" ></image>
@@ -70,4 +72,3 @@
       <view class='sheet-text'>答题卡</view>
     </view>    
   </view>
-</view>

@@ -112,6 +112,7 @@ Page({
   },
 
   onShareAppMessage: function () {
+	app.aldstat.sendEvent("share")
     return getShareInfo()
   },
 
@@ -184,6 +185,7 @@ Page({
       this.setData({ isDatiModel: true })
       this.showDatiModel()
     }
+	app.aldstat.sendEvent("dati")
   },
 
   tapBeiti: function () {
@@ -191,6 +193,7 @@ Page({
       this.setData({ isDatiModel: false })
       this.showBetiModel()
     }
+	app.aldstat.sendEvent("beiti")
   },
 
   tapCommit: function () {
@@ -391,6 +394,7 @@ Page({
       icon: 'none',
       duration: 800
     })
+	  app.aldstat.sendEvent("collect")
   },
 
   tapSheet: function() {
@@ -399,6 +403,7 @@ Page({
       icon: 'none',
       duration: 800
     })
+	  app.aldstat.sendEvent("sheet")
   },
 
   touchStart: function (e) {

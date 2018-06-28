@@ -40,6 +40,7 @@ Page({
         }
       })
     }
+	app.aldstat.sendEvent("mine")
   },
   getUserInfo: function (e) {
     console.log(e)
@@ -51,6 +52,7 @@ Page({
   },
 
   onShareAppMessage: function () {
+	app.aldstat.sendEvent("share")
     return getShareInfo()
   },
 })

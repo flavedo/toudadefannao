@@ -1,4 +1,5 @@
 const { getShareInfo } = require('../../utils/util.js')
+const app = getApp()
 
 Page({
   data: {
@@ -45,6 +46,7 @@ Page({
   },
 
   onShareAppMessage: function () {
+	  app.aldstat.sendEvent("share")
     return getShareInfo()
   },
 })
