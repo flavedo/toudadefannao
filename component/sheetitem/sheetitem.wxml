@@ -1,0 +1,4 @@
+
+<view class='tip-{{sheettype}}' bindtap='tapFile'>
+  {{ page + 1 }}
+</view>

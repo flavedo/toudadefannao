@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
@@ -39,15 +39,16 @@
 					"query": "bookType=mao&subjectType=multi"
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "type",
 					"pathName": "pages/type/type",
 					"query": "bookType=mao"
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "sheet",
-					"pathName": "pages/sheet/sheet"
+					"pathName": "pages/sheet/sheet",
+					"query": "bookType=mao"
 				}
 			]
 		}

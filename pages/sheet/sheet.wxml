@@ -1,2 +1,15 @@
 <!--pages/sheet/sheet.wxml-->
-<text>pages/sheet/sheet.wxml</text>
+<view class='tip'>
+
+  <view class='sheets'>
+    <view wx:for='{{ items.length() }}' wx:for-item='row' wx:key='index'>
+	  <view class='blank'>123</view>
+	  <view wx:for='{{ [0,1,2,3,4] }}' wx:for-item='item' wx:key='index'>
+		<sheetitem wx:if='{{ (row.key * 5 + item.key) }}' class='sheet' page='{{ }}' sheettype='{{ sheetTypes[] }}'></sheetitem>
+	  </view>
+  </view>
+
+  <button class='back' bindtap='tapBack'>
+    返回答题
+  </button>
+</view>

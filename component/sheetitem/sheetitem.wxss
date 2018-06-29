@@ -1,0 +1,36 @@
+/* component/sheetitem/sheetitem.wxss */
+.tip-1 {
+  height: 100rpx;
+  width: 100rpx;
+  border: 2px solid #279DF7;
+  background: none;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-2 {
+  height: 100rpx;
+  width: 100rpx;
+  border: 2px solid #093D51;
+  background: #093D51;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tip-3 {
+  height: 100rpx;
+  width: 100rpx;
+  border: 2px solid red;
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

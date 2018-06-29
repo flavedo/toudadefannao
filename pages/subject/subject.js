@@ -398,11 +398,9 @@ Page({
   },
 
   tapSheet: function() {
-    wx.showToast({
-      title: '这个功能还未开发完成！',
-      icon: 'none',
-      duration: 800
-    })
+	  wx.navigateTo({
+		  url: "../../pages/sheet/sheet?bookType=" + this.$data.bookType
+	  })
 	  app.aldstat.sendEvent("sheet")
   },
 
