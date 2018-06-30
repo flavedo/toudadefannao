@@ -62,6 +62,16 @@ Page({
     })
   },
 
+  tapCollect: function() {
+    wx.navigateTo({
+      url: "../../pages/subject/subject?bookType=" + this.data.bookType + "&subjectType=collect"
+    })
+    app.aldstat.sendEvent("type", {
+      bookType: this.data.bookType,
+      subjectType: 'collect'
+    })
+  },
+
   onShareAppMessage: function () {
     app.aldstat.sendEvent("share")
     return getShareInfo()

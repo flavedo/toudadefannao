@@ -32,6 +32,32 @@ const subjectComp = function (a, b) {
   }
 }
 
+const saveCollect = (bookType, collectDatas) => new Promise((resolve, reject) => {
+  wx.setStorage({
+    key: bookType + '-collect',
+    data: collectDatas,
+    success: function() {
+      resolve()
+    },
+    fail: function() {
+      reject()
+    }
+  })
+})
+
+const loadCollect = (bookType) => new Promise((resolve, reject) => {
+  wx.getStorage({
+    key: bookType + '-collect',
+    success: function(res) {
+      resolve(res.data)
+    },
+    fail: function() {
+      console.log('fail')
+      resolve([])
+    }
+  })
+})
+
 const loadBook = (bookType) => new Promise((resolve, reject) => {
   try {
     console.log("loadbook:" + bookType)
@@ -67,37 +93,56 @@ const loadBook = (bookType) => new Promise((resolve, reject) => {
   }
 })
 
-// all、single、multi、judge、
+// all、single、multi、judge、collect
 const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) => {
   console.log(subjectType)
-  loadBook(bookType).then(subjects => {
-    switch(subjectType) {
-      case 'all':
+
+  switch(subjectType){
+    case 'all':
+      loadBook(bookType).then(subjects => {
         resolve(subjects)
-        break
-      case 'single':
-        resolve(subjects.filter(item =>{
+      }).catch(e => {
+        reject(e)
+      })
+      break
+    case 'single':
+      loadBook(bookType).then(subjects => {
+        resolve(subjects.filter(item => {
           return item.questionType == 1
         }))
-        break
-      case 'judge': 
+      }).catch(e => {
+        reject(e)
+      })
+      break
+    case 'judge':
+      loadBook(bookType).then(subjects => {
         resolve(subjects.filter(item => {
           return item.questionType == 2
         }))
-        break
-      case 'multi':
+      }).catch(e => {
+        reject(e)
+      })
+      break
+    case 'multi':
+      loadBook(bookType).then(subjects => {
         resolve(subjects.filter(item => {
           return item.questionType == 3
         }))
-        break
-      default:
+      }).catch(e => {
+        reject(e)
+      })
+      break
+    case 'collect' :
+      return loadCollect(bookType).then(subjects => {
         resolve(subjects)
-        break
+      }).catch(e => {
+        reject(e)
+      })
+    default:
+      reject('未知题目类型')
+      break
     }
-  }).catch(e => {
-    reject(e)
   })
-})
 
 const storeSubjectDone = (bookType, subjectType, page) => {
 	wx.setStorageSync(bookType + '-' + subjectType, page)
@@ -119,6 +164,8 @@ const getBookName = book => {
       return '毛泽东思想'
     case 'moral':
       return '道德基础'
+    case 'collect':
+      return '收藏题目'
     default:
       return ''
   }
@@ -149,6 +196,8 @@ module.exports = {
   formatTime,
   loadTypeBook,
   loadBook,
+  loadCollect,
+  saveCollect,
   getBookName,
   storeSubjectDone,
   getSubjectDone,

@@ -1,6 +1,6 @@
 // pages/subject/subject.js
 
-const { loadTypeBook, getBookName, storeSubjectDone, getSubjectDone, getShareInfo } = require('../../utils/util.js')
+const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo } = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -12,20 +12,22 @@ Page({
   data: {
     isDatiModel: true,
     subject: {},
-    rank: 1,
-    num: 1,
-    rankcount: 1,
+    rank: 0,
+    num: 0,
+    rankcount: 0,
     rightAnswerTip: false,
     wrongAnswerTip: false,
     showCommitBtn: false,
     userAnswer: '',
     rightAnswer: '',
+    isCollect: false
   },
 
   $data: {
     bookType: '',
     subjectType: '', // all、single、multi、judge、collect、wrong	
     subjectDatas: [],
+    collectDatas: [],
     userOptions: [],
     page: 0,
     hasCheckHistory: false
@@ -51,8 +53,22 @@ Page({
       wx.showLoading({ title: '正在加载' })
       loadTypeBook(this.$data.bookType, this.$data.subjectType).then(subjects => {
         this.$data.subjectDatas = subjects
-        wx.hideLoading()
-        this.loadPage()
+        if (subjects.length == 0) {
+          wx.hideLoading()
+          wx.showModal({
+            content: '题目数量为空',
+            showCancel: false,
+            success: function(res) {
+              wx.navigateBack()
+            }
+          })
+          return;
+        }
+        loadCollect(this.$data.bookType).then(collects => {
+          wx.hideLoading()
+          this.$data.collectDatas = collects
+          this.loadPage()
+        })
       }).catch(code => {
         wx.hideLoading()
         wx.showToast({ title: '加载错误' })
@@ -66,7 +82,14 @@ Page({
       let rank = parseInt(this.$data.page / 100) + 1
       let subject = bookData[this.$data.page]
       let num = this.$data.page % 100 + 1
-      let rankcount = this.$data.page <= (parseInt(bookData.length / 100) * 100) ? 100 : (bookData.length % 100)
+      let rankcount = (this.$data.page < (parseInt(bookData.length / 100) * 100)) ? 100 : (bookData.length % 100)
+      let isCollect = false
+      for (var i = 0; i < this.$data.collectDatas.length; i++) {
+        if (this.$data.collectDatas[i].questionNum == subject.questionNum) {
+          isCollect = true
+          break;
+        }
+      }
       this.setData({
         subject,
         rank,
@@ -76,7 +99,8 @@ Page({
         wrongAnswerTip: false,
         userAnswer: '',
         rightAnswer: '',
-        showCommitBtn: false
+        showCommitBtn: false,
+        isCollect
       })
       
       if (this.data.isDatiModel) {
@@ -185,7 +209,7 @@ Page({
       this.setData({ isDatiModel: true })
       this.showDatiModel()
     }
-	app.aldstat.sendEvent("dati")
+	  app.aldstat.sendEvent("dati")
   },
 
   tapBeiti: function () {
@@ -389,10 +413,30 @@ Page({
   },
 
   tapCollect: function() {
-    wx.showToast({
-      title: '这个功能还未开发完成！',
-      icon: 'none',
-      duration: 800
+    wx.showLoading()
+    var isCollect = this.data.isCollect
+    var subject = this.data.subject
+    if(isCollect){
+      for (var i = 0; i < this.$data.collectDatas.length; i++) {
+        if (this.$data.collectDatas[i].questionNum == subject.questionNum) {
+          this.$data.collectDatas.splice(i, 1);
+          break;
+        }
+      }
+    } else {
+      this.$data.collectDatas.push(subject)
+    }
+    var that = this
+    saveCollect(this.$data.bookType, this.$data.collectDatas).then((res) => {
+      wx.hideLoading()
+      that.setData({
+        isCollect: !isCollect
+      })
+    }).catch(e => {
+      wx.hideLoading()
+      wx.showToast({
+        title: !isCollect ? '收藏失败' : '移除失败'
+      })
     })
 	  app.aldstat.sendEvent("collect")
   },

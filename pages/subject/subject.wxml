@@ -64,7 +64,7 @@
 
   <view class='bottom'>
     <view class='bottom-collect' bindtap='tapCollect'> 
-      <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-no.png" ></image>
+      <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-{{ isCollect ? 'yes' : 'no'}}.png" ></image>
       <view class='collect-text'>收藏</view>
     </view>
     <view class='bottom-sheet' bindtap='tapSheet'> 
