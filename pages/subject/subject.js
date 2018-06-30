@@ -413,7 +413,6 @@ Page({
   },
 
   tapCollect: function() {
-    wx.showLoading()
     var isCollect = this.data.isCollect
     var subject = this.data.subject
     if(isCollect){
@@ -428,12 +427,10 @@ Page({
     }
     var that = this
     saveCollect(this.$data.bookType, this.$data.collectDatas).then((res) => {
-      wx.hideLoading()
       that.setData({
         isCollect: !isCollect
       })
     }).catch(e => {
-      wx.hideLoading()
       wx.showToast({
         title: !isCollect ? '收藏失败' : '移除失败'
       })

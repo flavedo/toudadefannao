@@ -119,7 +119,7 @@
   }
 
   .answser-result {
-    margin: 50rpx 30rpx 105rpx 30rpx; 
+    margin: 50rpx 30rpx 135rpx 30rpx; 
   }
   
   .answser-tip {
@@ -186,8 +186,8 @@
   }
 
   .sheet-image {
-    width: 50rpx;
-    height: 50rpx;
+    width: 55rpx;
+    height: 55rpx;
   }
 
   .sheet-text {

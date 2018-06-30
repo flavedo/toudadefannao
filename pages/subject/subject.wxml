@@ -68,7 +68,7 @@
       <view class='collect-text'>收藏</view>
     </view>
     <view class='bottom-sheet' bindtap='tapSheet'> 
-      <image class='sheet-image' mode="aspectFit" src="../../lib/image/collect-no.png" ></image>
+      <image class='sheet-image' mode="aspectFit" src="../../lib/image/sheet.png" ></image>
       <view class='sheet-text'>答题卡</view>
     </view>    
   </view>
