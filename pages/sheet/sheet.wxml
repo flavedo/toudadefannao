@@ -1,7 +1,7 @@
 <!--pages/sheet/sheet.wxml-->
 <view class='tip'>
     <view class='map'>
-        <view class="sheet" wx:for='{{items}}' wx:for-item='row' wx:for-index="num" wx:key="property" >
+        <view class="sheet" wx:for='{{items}}' wx:for-item='row' wx:for-index="num" wx:for-key="{{row.id}}" >
             <view wx:if='{{ num % 20 == 0 }}' class='sep-top'> 第 {{ (num/20) + 1}} 阶段</view>
             <view class='item' wx:for='{{row}}' wx:for-item='col' >
               <sheetitem page='{{ col.id }}' sheettype='{{ col.sheetType }}' num='{{ col.id % 100 }}'></sheetitem>
@@ -9,8 +9,10 @@
             <view class='sep-bottom'></view>
         </view>
     </view>
-    <button class='back' bindtap='tapBack'>
-      返回答题
-    </button> 
+    <view class='backbg'>
+      <button class='back' bindtap='tapBack'>
+        返回答题
+      </button> 
+    </view>
 </view>
 

@@ -1,14 +1,32 @@
 <view class="tip">
-  <view class="tip-item" bindtap='tapAll'>
-    <view class="tip-text" >全部题目</view>
-  </view>
-  <view class="tip-item" bindtap='tapSingle'>
-    <view class="tip-text" >单选题目</view>  
-  </view>
-  <view class="tip-item" bindtap='tapJudge'>
-    <view class="tip-text">判断题目</view>
-  </view>
-  <view class="tip-item" bindtap='tapMulti'>
-    <view class="tip-text" >多选题目</view>
-  </view>
+
+<view wx:if='{{bookType.length > 0}}' class='tip-top'>
+  <image mode="scaleToFill" class='tip-image' src="/lib/image/{{bookType}}-book.jpg"></image>
+</view>
+
+<button class="tip-item" bindtap='tapCollect'>
+  <view class="tip-text" >收藏题目</view>
+  <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+</button>
+<view class="big-divider"></view>
+<button class="tip-item" bindtap='tapAll'>
+  <view class="tip-text" >全部题目</view>
+  <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+</button>
+<view class="divider"></view>
+<button class="tip-item" bindtap='tapSingle'>
+  <view class="tip-text" >单选题目</view>  
+  <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+</button>
+<view class="divider"></view>
+<button class="tip-item" bindtap='tapJudge'>
+  <view class="tip-text">判断题目</view>
+  <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+</button>
+<view class="divider"></view>
+<button class="tip-item" bindtap='tapMulti'>
+  <view class="tip-text" >多选题目</view>
+  <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+</button>
+<view class="divider"></view>
 </view >

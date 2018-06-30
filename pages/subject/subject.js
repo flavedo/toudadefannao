@@ -428,7 +428,7 @@ Page({
         wx.showToast({
           title: '没有了更多！',
           icon: 'none',
-          duration: 500
+          duration: 400
         })
       }
     }

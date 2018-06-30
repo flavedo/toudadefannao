@@ -64,7 +64,7 @@
 	  display: inline-block;
 	  text-align:center;
     font-size: 32rpx;
-    color: #4675F9;
+    color: #279DF7;
   }
   
   .top-sep {
@@ -89,8 +89,8 @@
   .question-type {
     float:left;
     margin-right: 10rpx;
-    font-size: 38rpx;
-    color: #279DF7;
+    font-size: 36rpx;
+    color: #093D51;
     line-height: 50rpx;
   }
 
@@ -106,7 +106,7 @@
   }
 
   .commit {
-    background: #279DF7;
+    background: #1c87b0;
     width: 80%;
     height: 80rpx;
     border: none;
@@ -123,21 +123,21 @@
   }
   
   .answser-tip {
-    color: #000;
+    color: #353535;
     font-size: 32rpx;
     margin-top: 20rpx; 
     line-height: 50rpx;
   }
 
   .user-answer {
-    color: #000;
+    color: #353535;
     font-size: 32rpx;
     margin-top: 15rpx; 
     line-height: 50rpx;
   }
 
   .right-answer {
-    color: #4675F9;
+    color: #279DF7;
     font-size: 32rpx;
     margin-top: 15rpx; 
     line-height: 50rpx;
@@ -160,7 +160,7 @@
     justify-content: center;
     width: 50%;
     height: 100%;
-    background: #279DF7;
+    background: #1c87b0;
     text-align: center;
   }
 
@@ -191,7 +191,7 @@
   }
 
   .sheet-text {
-    color: #279DF7;
+    color: #1c87b0;
     font-size: 35rpx;
     margin-left: 20rpx;
   }

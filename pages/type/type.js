@@ -9,7 +9,9 @@ Page({
   },
 
   onLoad: function (options) {
-    this.data.bookType = options.bookType
+    this.setData({
+      bookType: options.bookType
+    })
     this.setBookName()
   },
 

@@ -2,9 +2,9 @@
 .tip-1 {
   height: 90rpx;
   width: 90rpx;
-  border: 2px solid #279DF7;
+  border: 1px solid #1c87b0;
   background: none;
-  color: #000;
+  color: #353535;
   border-radius: 50%;
   display: flex;
   text-align: center;

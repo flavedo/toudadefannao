@@ -12,12 +12,13 @@
   display: inline-block;
   width: 94%;
   margin-bottom: 10%;
-  border: 1px solid #093D51;
+  border: 1px solid #1c87b0;
   border-radius: 10px;
   padding: 4%;
   padding-top: 5%;
   margin-right: 2%;
   text-align: center;
+  color: #353535;
 }
 
 .book-image {
