@@ -1,6 +1,6 @@
 // pages/subject/subject.js
 
-const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo } = require('../../utils/util.js')
+const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage } = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -30,12 +30,14 @@ Page({
     collectDatas: [],
     userOptions: [],
     page: 0,
-    hasCheckHistory: false
+    hasCheckHistory: false,
+    isAutoPage: true
   },
 
   onLoad: function (options) {
     this.$data.bookType = options.bookType
     this.$data.subjectType = options.subjectType
+    this.$data.isAutoPage = getAutoPage()
     this.setBookName()
     this.checkBookData()
   },
@@ -53,7 +55,7 @@ Page({
       wx.showLoading({ title: '正在加载' })
       loadTypeBook(this.$data.bookType, this.$data.subjectType).then(subjects => {
         this.$data.subjectDatas = subjects
-        if (subjects.length == 0) {
+        if (!subjects || subjects.length == 0) {
           wx.hideLoading()
           wx.showModal({
             content: '题目数量为空',
@@ -64,6 +66,7 @@ Page({
           })
           return;
         }
+        console.log("subjects.length " + subjects.length)
         loadCollect(this.$data.bookType).then(collects => {
           wx.hideLoading()
           this.$data.collectDatas = collects
@@ -119,7 +122,6 @@ Page({
     this.$data.hasCheckHistory = true
     let storePage = getSubjectDone(this.$data.bookType, this.$data.subjectType)
     let that = this
-    console.log(storePage)
     if (!isNaN(storePage) && storePage != that.$data.page) {
       wx.showModal({
         content: '是否回到上次做题的位置',
@@ -242,7 +244,6 @@ Page({
   },
 
   commitResult: function (userOption) {
-    console.log("userOption:" + userOption)
     wx.vibrateShort()
     if (userOption.length == 0) {
       wx.showToast({
@@ -347,7 +348,7 @@ Page({
     let page = this.$data.page + 1
     let bookData = this.$data.subjectDatas
     let that = this
-    if (page < bookData.length) {
+    if (this.$data.isAutoPage && page < bookData.length) {
       switchInterval = setInterval(function () {
         that.$data.page = page
         that.loadPage()
@@ -425,6 +426,7 @@ Page({
     } else {
       this.$data.collectDatas.push(subject)
     }
+    console.log("collectDatas: " + this.$data.collectDatas.length)
     var that = this
     saveCollect(this.$data.bookType, this.$data.collectDatas).then((res) => {
       that.setData({

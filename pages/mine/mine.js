@@ -1,18 +1,18 @@
 const app = getApp()
-const { getShareInfo } = require('../../utils/util.js')
+const { getShareInfo, getAutoPage, setAutoPage } = require('../../utils/util.js')
 
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isAutoPage: true
   },
-  //事件处理函数
+  
   bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    app.aldstat.sendEvent("clickAvar")
   },
+
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
@@ -40,14 +40,27 @@ Page({
         }
       })
     }
-	app.aldstat.sendEvent("mine")
+    let isAutoPage = getAutoPage()
+    this.setData({
+      isAutoPage
+    })
+	  app.aldstat.sendEvent("mine")
   },
+  
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+
+  tapSwitch: function() {
+    let isAutoPage = !this.data.isAutoPage
+    setAutoPage(isAutoPage)
+    this.setData({
+      isAutoPage
     })
   },
 

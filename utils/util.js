@@ -192,6 +192,19 @@ const getShareInfo = () => {
   }
 }
 
+const getAutoPage = () => {
+  var result = wx.getStorageSync("autoPage")
+  console.log(result)
+  if (typeof (result) == "undefined" || result == null || result.length == 0)
+    return true
+  return result
+}
+
+const setAutoPage = (result) => {
+  console.log(result)
+  wx.setStorageSync("autoPage", result)
+}
+
 module.exports = {
   formatTime,
   loadTypeBook,
@@ -201,5 +214,7 @@ module.exports = {
   getBookName,
   storeSubjectDone,
   getSubjectDone,
-  getShareInfo
+  getShareInfo,
+  getAutoPage,
+  setAutoPage
 }
