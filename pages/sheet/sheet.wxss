@@ -1,23 +1,43 @@
 /* pages/sheet/sheet.wxss */
-.sheets {
-  margin-bottom: 140rpx;
-  display: flex; 
-  flex-flow: row ;
+.tip {
+  display: flex;
+  width: 100%;
 }
 
-.sheet {
+.map {
+  margin-bottom: 135rpx;
+  width: 100%;
+}
+
+.item {
+  display: inline-block;
+  text-align: center;
   width: 20%;
 }
 
-.blank {
-  background:red;
+.sep {
+  display: block;
   width: 100%;
-  height: 50rpx;
+}
+
+.sep-top {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 35rpx;
+  color: #000;
+  margin-bottom: 30rpx;
+  padding-left: 30rpx; 
+  background: #F7F7F7;
+}
+
+.sep-bottom {
+  margin-bottom: 30rpx;
 }
 
 .back {
-  width: 70%;
-  height: 100rpx; 
+  width: 80%;
+  height: 90rpx; 
   color: #F7F7F7;
   background: #279DF7;
   border: none;
@@ -27,6 +47,6 @@
   vertical-align: middle;
   position:fixed;
   top: 98%;
-  left: 85%;
+  left: 90%;
   transform: translate(-100%, -100%);
 }

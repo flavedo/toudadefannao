@@ -1,15 +1,16 @@
 <!--pages/sheet/sheet.wxml-->
 <view class='tip'>
-
-  <view class='sheets'>
-    <view wx:for='{{ items.length() }}' wx:for-item='row' wx:key='index'>
-	  <view class='blank'>123</view>
-	  <view wx:for='{{ [0,1,2,3,4] }}' wx:for-item='item' wx:key='index'>
-		<sheetitem wx:if='{{ (row.key * 5 + item.key) }}' class='sheet' page='{{ }}' sheettype='{{ sheetTypes[] }}'></sheetitem>
-	  </view>
-  </view>
-
-  <button class='back' bindtap='tapBack'>
-    返回答题
-  </button>
+    <view class='map'>
+        <view class="sheet" wx:for='{{items}}' wx:for-item='row' wx:for-index="num" wx:key="property" >
+            <view wx:if='{{ num % 20 == 0 }}' class='sep-top'> 第 {{ (num/20) + 1}} 阶段</view>
+            <view class='item' wx:for='{{row}}' wx:for-item='col' >
+              <sheetitem page='{{ col.id }}' sheettype='{{ col.sheetType }}' num='{{ col.id % 100 }}'></sheetitem>
+            </view>
+            <view class='sep-bottom'></view>
+        </view>
+    </view>
+    <button class='back' bindtap='tapBack'>
+      返回答题
+    </button> 
 </view>
+

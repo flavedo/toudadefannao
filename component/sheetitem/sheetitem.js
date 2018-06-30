@@ -3,7 +3,8 @@ Component({
 
   properties: {
     page: Number,
-    sheettype: Number
+    sheettype: Number,
+    num: Number
   },
 
   data: {
@@ -12,6 +13,7 @@ Component({
 
   methods: {
     tapFile() {
+      wx.vibrateShort()
       let pages = getCurrentPages();
       if (pages.length > 1) {
         let prePage = pages[pages.length - 2];

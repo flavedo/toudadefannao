@@ -108,7 +108,7 @@
   .commit {
     background: #279DF7;
     width: 80%;
-    height: 100rpx;
+    height: 80rpx;
     border: none;
     padding: 0;
     color: #F7F7F7;
