@@ -51,15 +51,16 @@
 					"query": "bookType=mao"
 				},
 				{
-					"id": -1,
-					"name": "subject",
+					"id": 3,
+					"name": "mine",
 					"pathName": "pages/mine/mine",
 					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "feedback",
-					"pathName": "pages/feedback/feedback"
+					"pathName": "pages/feedback/feedback",
+					"query": ""
 				}
 			]
 		}

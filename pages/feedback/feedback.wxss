@@ -5,37 +5,50 @@
     font-size: 11pt;
     box-sizing: border-box;
 }
+
 .issues-content{
     display: flex;
     flex-direction: column;
     align-items: stretch;
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;   
+    margin-top: 30rpx;
     margin-left: 5rpx;
     margin-right: 5rpx;
+    min-height: 225rpx;
 }
+
 .issues-contact{
-    display: flex;
     height: 90rpx;
-    flex-direction: column;
-    align-items: stretch;
     background-color: #fff;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
-    margin-top: 20rpx;
+    margin-top: 30rpx;
+    margin-bottom: 10rpx;
     margin-left: 5rpx;
     margin-right: 5rpx;
 }
 
-.issues-textarea{
+.input-content{
     width: 100%;
     padding: 25rpx;
     min-height: 225rpx;
     box-sizing: border-box;
+    font-size: 35rpx;
 }
-
-.issues-textarea.error{
+.issues-content.error{
+    background: rgba(231, 138, 176, 0.06);
+}
+.input-contact{
+    width: 100%;
+    padding: 25rpx;
+    min-height: 90rpx;
+    font-size: 35rpx;
+    line-height: 40rpx;
+    box-sizing: border-box;
+}
+.issues-contact.error{
     background: rgba(231, 138, 176, 0.06);
 }
 .issues-remind {
@@ -46,7 +59,7 @@
     padding: 0 30rpx;
     word-break: break-all;
     text-indent: 1em;
-    padding-top: 30rpx;
+    padding-top: 50rpx;
 }
 .issues-remind.text-center{
     text-align: center;
@@ -55,9 +68,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 40rpx 3%;
-    height: 80rpx;
-    border-radius: 3px;
+    margin-top: 40rpx;
+	  margin-left: 50rpx;
+	  margin-right: 50rpx;
+	  height: 80rpx;
+    border-radius: 20;
     text-align: center;
     background-color: #1c87b0;
     color: #fff;

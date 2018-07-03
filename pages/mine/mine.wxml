@@ -15,4 +15,5 @@
   <view class="feedback">
     <view class="feedback-left" bindtap='tapFeedback'>吐个槽</view>
   </view>
+  <view class="divider"></view>
 </view>

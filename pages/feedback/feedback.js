@@ -6,8 +6,8 @@ Page({
   data: {
     content : '',
     contact : '',
-    isLoading: false,
-    isdisabled: false
+    contentTip: '请输入反馈内容',
+    contactTip: '邮件或QQ(选填)'
   },
 
   $data: {
@@ -24,6 +24,8 @@ Page({
   submitForm: function (e) {
     var content = e.detail.value.content;
     var contact = e.detail.value.contact;
+    console.log(content)
+    console.log(contact)
     //先进行表单非空验证
     if (content.length == 0) {
       wx.showToast({
@@ -32,30 +34,26 @@ Page({
         duration: 800
       })
     } else {
-      this.setData({
-        isLoading: true,
-        isdisabled: true
+      console.log("正在反馈")
+      wx.showLoading({
+        title: '正在反馈',
       })
       sendFeedback(content, contact).then(() =>{
+        this.setData({
+          content: '',
+          contact: '',
+        })
+        wx.hideLoading()
         wx.showToast({
           title: '反馈成功！谢谢你的意见和建议',
           icon: 'none'
         })
-        this.setData({
-          isLoading: false,
-          isdisabled: false,
-          content: '',
-          contact: '',
-        })
         app.aldstat.sendEvent("feebackSuccess")
       }).catch(() =>{
+        wx.hideLoading()
         wx.showToast({
           title: '不好意思，反馈失败了！',
           icon: 'none'
-        })
-        this.setData({
-          isLoading: false,
-          isdisabled: false
         })
         app.aldstat.sendEvent("feebackFailed")
       })
