@@ -4,7 +4,8 @@
     "pages/mine/mine",
     "pages/subject/subject",
     "pages/type/type",
-    "pages/sheet/sheet"
+    "pages/sheet/sheet",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "dark",

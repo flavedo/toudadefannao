@@ -3,6 +3,7 @@ const { lawBookData } = require('../lib/data/law.js')
 const { maoBookData } = require('../lib/data/mao.js')
 const { marxBookData } = require('../lib/data/marx.js')
 const { moralBookData } = require('../lib/data/moral.js')
+var Bmob = require('../utils/Bmob-1.6.1.min.js')
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -36,11 +37,11 @@ const saveCollect = (bookType, collectDatas) => new Promise((resolve, reject) =>
   wx.setStorage({
     key: bookType + '-collect',
     data: collectDatas,
-    success: function() {
+    success: function () {
       resolve()
     },
-    fail: function() {
-      reject()
+    fail: function (res) {
+      reject(res)
     }
   })
 })
@@ -48,10 +49,10 @@ const saveCollect = (bookType, collectDatas) => new Promise((resolve, reject) =>
 const loadCollect = (bookType) => new Promise((resolve, reject) => {
   wx.getStorage({
     key: bookType + '-collect',
-    success: function(res) {
+    success: function (res) {
       resolve(res.data)
     },
-    fail: function() {
+    fail: function (res) {
       console.log('fail')
       resolve([])
     }
@@ -97,7 +98,7 @@ const loadBook = (bookType) => new Promise((resolve, reject) => {
 const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) => {
   console.log(subjectType)
 
-  switch(subjectType){
+  switch (subjectType) {
     case 'all':
       loadBook(bookType).then(subjects => {
         resolve(subjects)
@@ -132,7 +133,7 @@ const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) =>
         reject(e)
       })
       break
-    case 'collect' :
+    case 'collect':
       return loadCollect(bookType).then(subjects => {
         resolve(subjects)
       }).catch(e => {
@@ -141,15 +142,19 @@ const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) =>
     default:
       reject('未知题目类型')
       break
-    }
-  })
+  }
+})
 
 const storeSubjectDone = (bookType, subjectType, page) => {
-	wx.setStorageSync(bookType + '-' + subjectType, page)
+  try {
+    wx.setStorageSync(bookType + '-' + subjectType, page)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 const getSubjectDone = (bookType, subjectType) => {
-	return parseInt(wx.getStorageSync(bookType + '-' + subjectType))
+  return parseInt(wx.getStorageSync(bookType + '-' + subjectType))
 }
 
 const getBookName = book => {
@@ -202,8 +207,40 @@ const getAutoPage = () => {
 
 const setAutoPage = (result) => {
   console.log(result)
-  wx.setStorageSync("autoPage", result)
+  try {
+    wx.setStorageSync("autoPage", result)
+  } catch (e) {
+    console.log(e)
+  }
 }
+
+const sendFeedback = (content, contact) => new Promise((resolve, reject) => {
+  const query = Bmob.Query('feedback')
+  query.set("contact", contact)
+  query.set("content", content)
+  wx.getSystemInfo({
+    success: function (res) {
+      let mobileInfo = res.model + ''
+      let screenInfo = res.platform + ' - ' + res.windowWidth + 'x' + res.windowHeight
+      let wechatVersion = res.version + ''
+      query.set("mobileInfo", mobileInfo)
+      query.set("screenInfo", screenInfo)
+      query.set("wechatVersion", wechatVersion)
+      query.save().then(res => {
+        resolve()
+      }).catch(err => {
+        reject()
+      })
+    },
+    fail: function(res){
+      query.save().then(res => {
+        resolve()
+      }).catch(err => {
+        reject()
+      })
+    }
+  });
+})
 
 module.exports = {
   formatTime,
@@ -216,5 +253,6 @@ module.exports = {
   getSubjectDone,
   getShareInfo,
   getAutoPage,
-  setAutoPage
+  setAutoPage,
+  sendFeedback
 }

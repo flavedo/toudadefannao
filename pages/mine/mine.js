@@ -64,6 +64,13 @@ Page({
     })
   },
 
+  tapFeedback: function() {
+    wx.navigateTo({
+      url: "../../pages/feedback/feedback"
+    })
+    app.aldstat.sendEvent("feedback")
+  },
+
   onShareAppMessage: function () {
 	app.aldstat.sendEvent("share")
     return getShareInfo()

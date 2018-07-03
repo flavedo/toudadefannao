@@ -76,3 +76,21 @@
 .wx-switch-input{width:40px !important;height:22px !important;}
 .wx-switch-input::before{width:40px !important;height: 22px !important;}
 .wx-switch-input::after{width: 18px !important;height: 18px !important;}
+
+.feedback {
+  background: #fff;
+  width: 100%;
+  height: 50rpx;
+  border: none;
+  padding: 0;
+  position: relative;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  margin-left: 100rpx;
+}
+
+.feedback-left {
+  color: #353535;
+  font-size:36rpx;
+  line-height: 60rpx; 
+}

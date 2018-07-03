@@ -1,0 +1,74 @@
+.tip{
+    background-color: #f6f6f6;
+    padding: 0;
+    padding-top: 30rpx;
+    font-size: 11pt;
+    box-sizing: border-box;
+}
+.issues-content{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin-left: 5rpx;
+    margin-right: 5rpx;
+}
+.issues-contact{
+    display: flex;
+    height: 90rpx;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #fff;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 20rpx;
+    margin-left: 5rpx;
+    margin-right: 5rpx;
+}
+
+.issues-textarea{
+    width: 100%;
+    padding: 25rpx;
+    min-height: 225rpx;
+    box-sizing: border-box;
+}
+
+.issues-textarea.error{
+    background: rgba(231, 138, 176, 0.06);
+}
+.issues-remind {
+    flex: 1;
+    font-size: 30rpx;
+    line-height: 135%;
+    color: #ccc;
+    padding: 0 30rpx;
+    word-break: break-all;
+    text-indent: 1em;
+    padding-top: 30rpx;
+}
+.issues-remind.text-center{
+    text-align: center;
+}
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40rpx 3%;
+    height: 80rpx;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #1c87b0;
+    color: #fff;
+    font-size: 35rpx;
+    line-height: 150%;
+    padding: 0;
+    border: none;
+}
+.submit-btn.disabled{
+    opacity: .7;
+}
+.submit-btn:active{
+    opacity: .7;
+}

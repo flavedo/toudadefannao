@@ -12,4 +12,7 @@
     <switch class="switch-right" checked='{{isAutoPage}}' bindchange='tapSwitch' color="#1c87b0"></switch>
   </view>
   <view class="divider"></view>
+  <view class="feedback">
+    <view class="feedback-left" bindtap='tapFeedback'>吐个槽</view>
+  </view>
 </view>
