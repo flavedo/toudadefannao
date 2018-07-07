@@ -21,18 +21,22 @@
 }
 
 .userinfo-btn {
-  border: 1rpx solid #ccc;
-  background: #f5f5f5;
+  border: none;
   width: 128rpx;
   height: 128rpx;
   margin-top: 20rpx;
   margin-bottom: 163rpx;
-  color: #ccc;
-  font-size: 30rpx;
-  text-align: center;
-  display:flex;
-  align-items:center;
-  border-radius:10%; 
+  padding: 0;
+  border-radius: 50%;
+}
+
+.userinfo-btn::after{
+  border:none;
+}
+
+.userinfo-default-image {
+  width: 100%;
+  height: 100%;
 }
 
 .userinfo-nickname {
@@ -89,10 +93,20 @@
   margin-top: 30rpx;
   margin-bottom: 30rpx;
   margin-left: 100rpx;
+
 }
 
 .feedback-left {
   color: #353535;
   font-size:36rpx;
   line-height: 60rpx; 
+  border: none;
+  background:none;
+  outline:none;
+  text-align: left;
+  padding: 0;
+}
+
+.feedback-left::after{
+  border:none;
 }

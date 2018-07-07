@@ -1,6 +1,14 @@
 <view class="tip">
   <view class="tip-top">
-    <button wx:if="{{!hasUserInfo && canIUse}}"  class='userinfo-btn' open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 头像 </button>
+    <button wx:if="{{!hasUserInfo && canIUse}}" 
+        class='userinfo-btn' 
+        open-type="getUserInfo" 
+        bindgetuserinfo="getUserInfo">
+        <image class='userinfo-default-image' 
+               mode='aspectFit' 
+               src='/lib/image/share.png'>
+        </image>
+    </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
@@ -13,7 +21,7 @@
   </view>
   <view class="divider"></view>
   <view class="feedback">
-    <view class="feedback-left" bindtap='tapFeedback'>吐个槽</view>
+    <button class="feedback-left" open-type='feedback'>吐个槽</button>
   </view>
   <view class="divider"></view>
 </view>

@@ -9,7 +9,7 @@
         <input class="input-contact" cursor-spacing="80" placeholder="邮箱或QQ(选填)" name="contact" value="{{content}}" show-confirm-bar="">
         </input>
       </view>
-      <text class="issues-remind ">您可以联系QQ 1736570762即时反馈。</text>
+      <text class="issues-remind ">您可以联系QQ 1736970762即时反馈。</text>
       <button class="submit-btn" hover-start-time="200" form-type="submit">提交反馈</button>
     </form>
   </block>
