@@ -1,0 +1,11 @@
+<view>
+  <view id='sep-top' class='sep' bindtap='tapHead' >
+    <view class=' {{ isSpread ? "sep-top-spread" : "sep-top-fold" }} '> 第 {{ num + 1}} 阶段</view>
+    <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
+  </view>
+  <view class='sep-contain'>
+    <view wx:if='{{ isSpread }}' class='item' wx:for='{{ subjects }}' wx:key='item.key'>
+      <sheetitem num='{{ num * 100 + index }}' subject='{{ subjects[index]}}' option='{{ options[index] }}'></sheetitem>
+    </view>
+  </view>
+</view>

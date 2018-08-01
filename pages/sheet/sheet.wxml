@@ -1,13 +1,13 @@
 <!--pages/sheet/sheet.wxml-->
 <view class='tip'>
     <view class='map'>
-        <view class="sheet" wx:for='{{items}}' wx:for-item='row' wx:for-index="num" wx:for-key="{{row.id}}" >
-            <view wx:if='{{ num % 20 == 0 }}' class='sep-top'> 第 {{ (num/20) + 1}} 阶段</view>
-            <view class='item' wx:for='{{row}}' wx:for-item='col' >
-              <sheetitem page='{{ col.id }}' sheettype='{{ col.sheetType }}' num='{{ col.id % 100 }}'></sheetitem>
-            </view>
-            <view class='sep-bottom'></view>
-        </view>
+      <view class="sheet" wx:for='{{ subjectsList }}' wx:key='item.id'>
+        <sheetlist num="{{ index }}" 
+            subjects='{{ subjectsList[index] }}' 
+            options='{{ optionsList[index] }}'
+            isSpread='{{ index === currentIndex }}'>
+        </sheetlist>
+      </view>
     </view>
     <view class='backbg'>
       <button class='back' bindtap='tapBack'>
@@ -15,4 +15,3 @@
       </button> 
     </view>
 </view>
-

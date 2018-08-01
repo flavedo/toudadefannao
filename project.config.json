@@ -30,13 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "subject",
 					"pathName": "pages/subject/subject",
-					"query": "bookType=mao&subjectType=multi"
+					"query": "bookType=mao&subjectType=all"
 				},
 				{
 					"id": 1,

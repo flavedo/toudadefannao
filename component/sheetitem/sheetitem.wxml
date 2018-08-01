@@ -1,4 +1,18 @@
+<wxs module="getSheetType">
+  function getSheetType (subject, option) {
+    if (!option || typeof(option) == 'undefined') {
+      return 'tip-1' // 未答题
+    } else if (option.sort().toString() == subject.answer.sort().toString()) {
+      return 'tip-2' // 答对
+    } else {
+      return 'tip-3' //答错
+    }
+  }
+  module.exports = getSheetType
+</wxs>
 
-<view class='tip-{{sheettype}}' bindtap='tapFile'>
-  {{ num + 1 }}
+<view class='{{ getSheetType(subject, option) }}' bindtap='tapFile'>
+  <view class='text'>
+    {{ num % 100 + 1 }}
+  </view>
 </view>

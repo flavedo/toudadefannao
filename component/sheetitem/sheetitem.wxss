@@ -1,7 +1,7 @@
 /* component/sheetitem/sheetitem.wxss */
 .tip-1 {
-  height: 90rpx;
-  width: 90rpx;
+  height: 80rpx;
+  width: 80rpx;
   border: 1px solid #1c87b0;
   background: none;
   color: #353535;
@@ -12,13 +12,14 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20rpx;
 }
 
 .tip-2 {
-  height: 90rpx;
-  width: 90rpx;
+  height: 80rpx;
+  width: 80rpx;
   border: 2px solid #093D51;
-  background: #093D51;
+  background: rgba(9, 61, 81, 0.50);
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -27,13 +28,14 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20rpx;
 }
 
 .tip-3 {
-  height: 90rpx;
-  width: 90rpx;
-  border: 2px solid red;
-  background: red;
+  height: 80rpx;
+  width: 80rpx;
+  border: 2px solid rgba(255, 0, 0, 0.452);
+  background: rgba(255, 0, 0, 0.452);
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -41,4 +43,12 @@
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20rpx;
+}
+
+.text {
+  font-size: 30rpx;
+  line-height: 100%;
+  width: 100%;
+  padding-right: 5rpx;
 }
