@@ -45,7 +45,7 @@ Page({
     let isLastNextBtn = getLastNextBtn()
     this.setData({
       isAutoPage,
-      getLastNextBtn
+      isLastNextBtn
     })
 	  app.aldstat.sendEvent("mine")
   },
