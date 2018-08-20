@@ -1,12 +1,13 @@
 const app = getApp()
-const { getShareInfo, getAutoPage, setAutoPage } = require('../../utils/util.js')
+const { getShareInfo, getAutoPage, setAutoPage, getLastNextBtn, setLastNextBtn } = require('../../utils/util.js')
 
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    isAutoPage: true
+    isAutoPage: true,
+    isLastNextBtn: true
   },
   
   bindViewTap: function () {
@@ -41,8 +42,10 @@ Page({
       })
     }
     let isAutoPage = getAutoPage()
+    let isLastNextBtn = getLastNextBtn()
     this.setData({
-      isAutoPage
+      isAutoPage,
+      getLastNextBtn
     })
 	  app.aldstat.sendEvent("mine")
   },
@@ -61,6 +64,14 @@ Page({
     setAutoPage(isAutoPage)
     this.setData({
       isAutoPage
+    })
+  },
+
+  tapLastNext: function() {
+    let isLastNextBtn = !this.data.isLastNextBtn
+    setLastNextBtn(isLastNextBtn)
+    this.setData({
+      isLastNextBtn
     })
   },
 

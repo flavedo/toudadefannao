@@ -214,6 +214,23 @@ const setAutoPage = (result) => {
   }
 }
 
+const getLastNextBtn = () => {
+  var result = wx.getStorageSync("showLastNextBtn")
+  console.log(result)
+  if (typeof (result) == "undefined" || result == null || result.length == 0)
+    return true
+  return result
+}
+
+const setLastNextBtn = (result) => {
+  console.log(result)
+  try {
+    wx.setStorageSync("showLastNextBtn", result)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const sendFeedback = (content, contact) => new Promise((resolve, reject) => {
   const query = Bmob.Query('feedback')
   query.set("contact", contact)
@@ -254,5 +271,7 @@ module.exports = {
   getShareInfo,
   getAutoPage,
   setAutoPage,
-  sendFeedback
+  sendFeedback,
+  getLastNextBtn,
+  setLastNextBtn
 }

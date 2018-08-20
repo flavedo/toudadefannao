@@ -21,7 +21,6 @@
     </view>
      <view class="question-content">{{ subject.question }}</view>
    </view>
-  
    
    <view class="options">
     <option wx:if="{{ subject.options.length > 0 }}"
@@ -62,13 +61,21 @@
 
 </view>
 
-  <view class='bottom'>
-    <view class='bottom-collect' bindtap='tapCollect'> 
-      <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-{{ isCollect ? 'yes' : 'no'}}.png" ></image>
-      <view class='collect-text'>收藏</view>
-    </view>
-    <view class='bottom-sheet' bindtap='tapSheet'> 
-      <image class='sheet-image' mode="aspectFit" src="../../lib/image/sheet.png" ></image>
-      <view class='sheet-text'>答题卡</view>
-    </view>    
+<view class='last-subject' bindtap='tapLastSubject' wx:if='{{isShowLastNextBtn}}'>
+  <image class='last-subject-img' mode='aspectFit' src='/lib/image/last-subject.png'></image>
+</view>
+
+<view class='next-subject' bindtap='tapNextSubject' wx:if='{{isShowLastNextBtn}}'>
+  <image class='next-subject-img' mode='aspectFit' src='/lib/image/next-subject.png'></image>
+</view>
+
+<view class='bottom'>
+  <view class='bottom-collect' bindtap='tapCollect'> 
+    <image class='collect-image' mode="aspectFit" src="../../lib/image/collect-{{ isCollect ? 'yes' : 'no'}}.png" ></image>
+    <view class='collect-text'>收藏</view>
   </view>
+  <view class='bottom-sheet' bindtap='tapSheet'> 
+    <image class='sheet-image' mode="aspectFit" src="../../lib/image/sheet.png" ></image>
+    <view class='sheet-text'>答题卡</view>
+  </view>    
+</view>

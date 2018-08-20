@@ -204,3 +204,39 @@
   font-size: 35rpx;
   margin-left: 20rpx;
 }
+
+.last-subject {
+  position: absolute;
+  width: 110rpx;
+  height: 110rpx;
+  border: 1px solid rgba(28, 134, 176, 0.1);
+  border-radius: 50%;
+  top: 60%;
+  left: 5rpx;
+}
+
+.next-subject {
+  position: absolute;
+  width: 110rpx;
+  height: 110rpx;
+  border: 1px solid rgba(28, 134, 176, 0.1);
+  border-radius: 50%;
+  top: 60%;
+  right: 5rpx;
+}
+
+.next-subject-img {
+  width: 80rpx;
+  height: 80rpx;
+  margin: auto;
+  position: absolute;
+  left: 0; right: 0rpx; top: 0; bottom: 0;
+}
+
+.last-subject-img {
+  width: 80rpx;
+  height: 80rpx;
+  margin: auto;
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+}

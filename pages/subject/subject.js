@@ -1,6 +1,6 @@
 // pages/subject/subject.js
 
-const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage } = require('../../utils/util.js')
+const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage, getLastNextBtn} = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -20,6 +20,7 @@ Page({
     showCommitBtn: false,
     userAnswer: '',
     rightAnswer: '',
+    isShowLastNextBtn: false,
     isCollect: false
   },
 
@@ -34,18 +35,20 @@ Page({
     isAutoPage: true
   },
 
+  onShow: function() {
+    wx.setNavigationBarTitle({
+      title: getBookName(this.$data.bookType)
+    })
+    this.setData({
+      isShowLastNextBtn: getLastNextBtn()
+    })
+  },
+
   onLoad: function (options) {
     this.$data.bookType = options.bookType
     this.$data.subjectType = options.subjectType
     this.$data.isAutoPage = getAutoPage()
-    this.setBookName()
     this.checkBookData()
-  },
-
-  setBookName: function () {
-    wx.setNavigationBarTitle({
-      title: getBookName(this.$data.bookType)
-    })
   },
 
   checkBookData: function () {
@@ -462,36 +465,53 @@ Page({
     // 向左滑动 
     if (touchMove - touchDot <= -40 && time < 10) {
       console.log('左边')
-      let page = this.$data.page + 1
-      let bookData = this.$data.subjectDatas
-      if (page < bookData.length) {
-        this.$data.page = page
-        this.loadPage()
-      } else {
-        wx.showToast({
-          title: '没有了更多！',
-          icon: 'none',
-          duration: 400
-        })
-      }
+      this.showNextSubject()
     }
     // 向右滑动 
     if (touchMove - touchDot >= 40 && time < 10) {
       console.log('右边')
-      let page = this.$data.page - 1
-      if (page >= 0) {
-        this.$data.page = page
-        this.loadPage()
-      } else {
-        wx.showToast({
-          title: '没有了更多！',
-          icon: 'none',
-          duration: 500
-        })
-      }
+      this.showLastSubject()
     }
-
     clearInterval(interval); // 清除 setInterval
     time = 0;
-  }
+  },
+
+  tapLastSubject: function() {
+    wx.vibrateShort()
+    this.showLastSubject()
+  },
+
+  tapNextSubject: function() {
+    wx.vibrateShort()
+    this.showNextSubject()
+  },
+  
+  showLastSubject: function () {
+    let page = this.$data.page - 1
+    if (page >= 0) {
+      this.$data.page = page
+      this.loadPage()
+    } else {
+      wx.showToast({
+        title: '没有更多了！',
+        icon: 'none',
+        duration: 500
+      })
+    }
+  },
+
+  showNextSubject: function () {
+    let page = this.$data.page + 1
+    let bookData = this.$data.subjectDatas
+    if (page < bookData.length) {
+      this.$data.page = page
+      this.loadPage()
+    } else {
+      wx.showToast({
+        title: '没有更多了! ',
+        icon: 'none',
+        duration: 500
+      })
+    }
+  },
 })
