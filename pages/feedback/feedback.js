@@ -48,20 +48,20 @@ Page({
           title: '反馈成功！谢谢你的意见和建议',
           icon: 'none'
         })
-        app.aldstat.sendEvent("feebackSuccess")
+        app.aldstat.sendEvent("feedback_success")
       }).catch(() =>{
         wx.hideLoading()
         wx.showToast({
           title: '不好意思，反馈失败了！',
           icon: 'none'
         })
-        app.aldstat.sendEvent("feebackFailed")
+        app.aldstat.sendEvent("feedback_failed")
       })
     }
   },
 
   onShareAppMessage: function () {
-    app.aldstat.sendEvent("share")
+    app.aldstat.sendEvent("feedback_share")
     return getShareInfo()
   }
 })

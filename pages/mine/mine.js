@@ -11,7 +11,7 @@ Page({
   },
   
   bindViewTap: function () {
-    app.aldstat.sendEvent("clickAvar")
+    app.aldstat.sendEvent("mine_clickAvar")
   },
 
   onLoad: function () {
@@ -65,6 +65,7 @@ Page({
     this.setData({
       isAutoPage
     })
+    app.aldstat.sendEvent("mine_auto_page")
   },
 
   tapLastNext: function() {
@@ -73,17 +74,18 @@ Page({
     this.setData({
       isLastNextBtn
     })
+    app.aldstat.sendEvent("mine_last_next")
   },
 
   tapFeedback: function() {
     wx.navigateTo({
       url: "../../pages/feedback/feedback"
     })
-    app.aldstat.sendEvent("feedback")
+    app.aldstat.sendEvent("mine_feedback")
   },
 
   onShareAppMessage: function () {
-	app.aldstat.sendEvent("share")
+	app.aldstat.sendEvent("mine_share")
     return getShareInfo()
   },
 })

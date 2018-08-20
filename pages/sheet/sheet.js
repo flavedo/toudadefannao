@@ -48,10 +48,11 @@ Page({
 
   tapBack: function() {
     wx.navigateBack()
+    app.aldstat.sendEvent("sheet_back")
   },
   
   onShareAppMessage: function () {
-    app.aldstat.sendEvent("share")
+    app.aldstat.sendEvent("sheet_share")
     return getShareInfo()
   }
 })

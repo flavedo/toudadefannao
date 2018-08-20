@@ -43,10 +43,13 @@ Page({
     wx.navigateTo({
       url: "../../pages/type/type?bookType=" + bookType
     })
+    app.aldstat.sendEvent("index_book", {
+      type : bookType
+    })
   },
 
   onShareAppMessage: function () {
-	  app.aldstat.sendEvent("share")
+	  app.aldstat.sendEvent("index_share")
     return getShareInfo()
   },
 })
