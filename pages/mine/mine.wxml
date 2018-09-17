@@ -21,7 +21,7 @@
   </view>
   <view class="divider"></view>
   <view class="feedback">
-    <button class="feedback-left" open-type='feedback'>吐个槽</button>
+    <button class="feedback-left" bindtap='tapFeedback'>吐个槽</button>
   </view>
   <view class="divider"></view>
 </view>
