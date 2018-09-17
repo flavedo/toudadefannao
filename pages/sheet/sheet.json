@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "sheetitem": "/component/sheetitem/sheetitem"
+    "sheetlist": "/component/sheetlist/sheetlist"
   }
 }

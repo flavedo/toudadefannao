@@ -73,7 +73,7 @@ Page({
   },
 
   onShareAppMessage: function () {
-    app.aldstat.sendEvent("share")
+    app.aldstat.sendEvent("type_share")
     return getShareInfo()
   },
 })

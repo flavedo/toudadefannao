@@ -5,100 +5,54 @@ const app = getApp()
 Page({
 
   data: {
-    items: []
-  },
-
-  $data: {
-    bookType: ''
+    subjectsList: [],
+    optionsList: [],
+    currentIndex: 0
   },
 
   onLoad: function (options) {
-    this.$data.bookType = options.bookType
-    this.setBookName()
-    var pages = getCurrentPages();
-    if (pages.length > 1) {
-      var prePage = pages[pages.length - 2];
-      var subjectDatas = prePage.$data.subjectDatas
-      var userOptions = prePage.$data.userOptions
-	  
-	    var items = []
-	    var row = []
-      for (var i = 0; i < subjectDatas.length; i++) {
-		
-	  	  let sheetType
-		    let subject = subjectDatas[i]
-        let id = i
-        if (typeof(userOptions[i]) == 'undefined') {
-          sheetType = 1
-        } else {
-		      if (userOptions[i].sort().toString() == subjectDatas[i].answer.sort().toString()) {
-            sheetType = 2
-          } else {
-            sheetType = 3
-          }
-        }
-
-		    row.push({
-			    sheetType,
-		      subject,
-          id
-		    })
-        
-		    if(row.length == 5 || i == subjectDatas.length - 1) {
-			    items.push(Object.assign(row))
-			    row = []
-		    }
-      }
-      console.log(subjectDatas.length)
-	    this.setData({
-        items
-      })
-      wx.showLoading({
-        title: '正在加载',
-        icon: 'loading'
-      })
-      setTimeout(function () {
-        wx.hideLoading()
-      }, 1000)
-    }
+    console.log(options)
+    let { bookType } = this.options
+    this.showTitle(bookType)
+    this.getSubjectData()
   },
   
-  setBookName: function () {
+  showTitle: function (bookType) {
     wx.setNavigationBarTitle({
-      title: getBookName(this.$data.bookType)
+      title: getBookName(bookType)
     })
   },
 
-  onReady: function () {
-  
-  },
+  getSubjectData: function() {
+    let pages = getCurrentPages();
+    if (pages.length > 1) {
+      let prePage = pages[pages.length - 2];
+      let subjectDatas = prePage.$data.subjectDatas
+      let userOptions = prePage.$data.userOptions
+      let currentIndex = parseInt(prePage.$data.page / 100)
+      let scrollTop = currentIndex * 100
+      let subjectsList = []
+      let optionsList = []
+      for (var i = 0, len = subjectDatas.length; i < len; i += 100) {
+        subjectsList.push(subjectDatas.slice(i, i + 100))
+        optionsList.push(userOptions.slice(i, i + 100))
+      }
 
-  onShow: function () {
-  
-  },
-
-  onHide: function () {
-  
-  },
-
-  onUnload: function () {
-  
-  },
-
-  onPullDownRefresh: function () {
-  
-  },
-
-  onReachBottom: function () {
-  
+      this.setData({
+        subjectsList,
+        optionsList,
+        currentIndex
+      })
+    }
   },
 
   tapBack: function() {
     wx.navigateBack()
+    app.aldstat.sendEvent("sheet_back")
   },
   
   onShareAppMessage: function () {
-    app.aldstat.sendEvent("share")
+    app.aldstat.sendEvent("sheet_share")
     return getShareInfo()
   }
 })

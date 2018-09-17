@@ -178,10 +178,11 @@ const getBookName = book => {
 
 const getShareInfo = () => {
   let shareInfo = [
-    "来看看这道为什么选这个?",
+    "来看看这道题为什么选这个?",
     "快来使用头大的社科小程序",
     "头大的烦恼值得信赖",
-    "有什么意见尽管提"
+    "有什么意见尽管提",
+	"skr skr"
   ]
   let randomNum = Math.floor(Math.random() * shareInfo.length + 1)
   return {
@@ -201,7 +202,7 @@ const getAutoPage = () => {
   var result = wx.getStorageSync("autoPage")
   console.log(result)
   if (typeof (result) == "undefined" || result == null || result.length == 0)
-    return true
+    return false
   return result
 }
 
@@ -209,6 +210,23 @@ const setAutoPage = (result) => {
   console.log(result)
   try {
     wx.setStorageSync("autoPage", result)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const getLastNextBtn = () => {
+  var result = wx.getStorageSync("showLastNextBtn")
+  console.log(result)
+  if (typeof (result) == "undefined" || result == null || result.length == 0)
+    return true
+  return result
+}
+
+const setLastNextBtn = (result) => {
+  console.log(result)
+  try {
+    wx.setStorageSync("showLastNextBtn", result)
   } catch (e) {
     console.log(e)
   }
@@ -254,5 +272,7 @@ module.exports = {
   getShareInfo,
   getAutoPage,
   setAutoPage,
-  sendFeedback
+  sendFeedback,
+  getLastNextBtn,
+  setLastNextBtn
 }

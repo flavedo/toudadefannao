@@ -1,6 +1,6 @@
 // pages/subject/subject.js
 
-const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage } = require('../../utils/util.js')
+const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage, getLastNextBtn} = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -20,6 +20,7 @@ Page({
     showCommitBtn: false,
     userAnswer: '',
     rightAnswer: '',
+    isShowLastNextBtn: false,
     isCollect: false
   },
 
@@ -34,18 +35,20 @@ Page({
     isAutoPage: true
   },
 
+  onShow: function() {
+    wx.setNavigationBarTitle({
+      title: getBookName(this.$data.bookType)
+    })
+    this.setData({
+      isShowLastNextBtn: getLastNextBtn()
+    })
+  },
+
   onLoad: function (options) {
     this.$data.bookType = options.bookType
     this.$data.subjectType = options.subjectType
     this.$data.isAutoPage = getAutoPage()
-    this.setBookName()
     this.checkBookData()
-  },
-
-  setBookName: function () {
-    wx.setNavigationBarTitle({
-      title: getBookName(this.$data.bookType)
-    })
   },
 
   checkBookData: function () {
@@ -138,7 +141,7 @@ Page({
   },
 
   onShareAppMessage: function () {
-	app.aldstat.sendEvent("share")
+	app.aldstat.sendEvent("subject_share")
     return getShareInfo()
   },
 
@@ -211,7 +214,7 @@ Page({
       this.setData({ isDatiModel: true })
       this.showDatiModel()
     }
-	  app.aldstat.sendEvent("dati")
+	  app.aldstat.sendEvent("subject_dati")
   },
 
   tapBeiti: function () {
@@ -219,7 +222,7 @@ Page({
       this.setData({ isDatiModel: false })
       this.showBetiModel()
     }
-	app.aldstat.sendEvent("beiti")
+	app.aldstat.sendEvent("subject_beiti")
   },
 
   tapCommit: function () {
@@ -437,14 +440,14 @@ Page({
         title: !isCollect ? '收藏失败' : '移除失败'
       })
     })
-	  app.aldstat.sendEvent("collect")
+	  app.aldstat.sendEvent("subject_collect")
   },
 
   tapSheet: function() {
 	  wx.navigateTo({
 		  url: "../../pages/sheet/sheet?bookType=" + this.$data.bookType
 	  })
-	  app.aldstat.sendEvent("sheet")
+	  app.aldstat.sendEvent("subject_sheet")
   },
 
   touchStart: function (e) {
@@ -462,36 +465,55 @@ Page({
     // 向左滑动 
     if (touchMove - touchDot <= -40 && time < 10) {
       console.log('左边')
-      let page = this.$data.page + 1
-      let bookData = this.$data.subjectDatas
-      if (page < bookData.length) {
-        this.$data.page = page
-        this.loadPage()
-      } else {
-        wx.showToast({
-          title: '没有了更多！',
-          icon: 'none',
-          duration: 400
-        })
-      }
+      this.showNextSubject()
     }
     // 向右滑动 
     if (touchMove - touchDot >= 40 && time < 10) {
       console.log('右边')
-      let page = this.$data.page - 1
-      if (page >= 0) {
-        this.$data.page = page
-        this.loadPage()
-      } else {
-        wx.showToast({
-          title: '没有了更多！',
-          icon: 'none',
-          duration: 500
-        })
-      }
+      this.showLastSubject()
     }
-
     clearInterval(interval); // 清除 setInterval
     time = 0;
-  }
+  },
+
+  tapLastSubject: function() {
+    wx.vibrateShort()
+    this.showLastSubject()
+    app.aldstat.sendEvent("tap_last_collect")
+  },
+
+  tapNextSubject: function() {
+    wx.vibrateShort()
+    this.showNextSubject()
+    app.aldstat.sendEvent("tap_next_collect")
+  },
+  
+  showLastSubject: function () {
+    let page = this.$data.page - 1
+    if (page >= 0) {
+      this.$data.page = page
+      this.loadPage()
+    } else {
+      wx.showToast({
+        title: '没有更多了！',
+        icon: 'none',
+        duration: 500
+      })
+    }
+  },
+
+  showNextSubject: function () {
+    let page = this.$data.page + 1
+    let bookData = this.$data.subjectDatas
+    if (page < bookData.length) {
+      this.$data.page = page
+      this.loadPage()
+    } else {
+      wx.showToast({
+        title: '没有更多了! ',
+        icon: 'none',
+        duration: 500
+      })
+    }
+  },
 })
