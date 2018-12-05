@@ -1,17 +1,8 @@
 <view class="tip">
   <view class="tip-top">
-    <button wx:if="{{!hasUserInfo && canIUse}}" 
-        class='userinfo-btn' 
-        open-type="getUserInfo" 
-        bindgetuserinfo="getUserInfo">
-        <image class='userinfo-default-image' 
-               mode='aspectFit' 
-               src='/lib/image/share.png'>
-        </image>
-    </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <block>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{ avatarUrl }}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{ nickName }}</text>
     </block>
   </view>
 

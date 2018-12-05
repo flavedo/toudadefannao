@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.2.3",
 	"appid": "wxb6ec1372f4ae89a8",
 	"projectname": "toudadefannao",
 	"isGameTourist": false,
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -61,6 +61,11 @@
 					"name": "feedback",
 					"pathName": "pages/feedback/feedback",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "authorize",
+					"pathName": "pages/authorize/authorize"
 				}
 			]
 		}

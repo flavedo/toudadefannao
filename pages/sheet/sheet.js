@@ -11,7 +11,7 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(options)
+    app.login()    
     let { bookType } = this.options
     this.showTitle(bookType)
     this.getSubjectData()

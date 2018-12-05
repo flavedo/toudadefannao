@@ -28,5 +28,4 @@
   <view class="tip-text" >多选题目</view>
   <image mode="aspectFit" class="right-spread" src="/lib/image/right-spread.png"></image>
 </button>
-<view class="divider"></view>
 </view >

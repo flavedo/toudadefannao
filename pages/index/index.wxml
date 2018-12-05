@@ -1,5 +1,4 @@
 <view class="top">
-
   <view class="books" 
     wx:for="{{ books }}"
     wx:for-item="book"

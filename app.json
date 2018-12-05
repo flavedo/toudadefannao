@@ -5,7 +5,8 @@
     "pages/subject/subject",
     "pages/type/type",
     "pages/sheet/sheet",
-    "pages/feedback/feedback"
+    "pages/feedback/feedback",
+    "pages/authorize/authorize"
   ],
   "window": {
     "backgroundTextStyle": "dark",

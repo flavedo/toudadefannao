@@ -37,6 +37,10 @@ Page({
     ]
   },
 
+  onLoad() {
+    app.login()
+  },
+
   tapbook: function(e) {
     console.log("click: " + e.currentTarget.dataset.book)
     let bookType = e.currentTarget.dataset.book

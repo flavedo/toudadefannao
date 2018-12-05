@@ -18,14 +18,12 @@ Page({
   },
 
   onLoad: function (options) {
-    app.aldstat.sendEvent("feeback")
+    app.login()
   },
 
   submitForm: function (e) {
     var content = e.detail.value.content;
     var contact = e.detail.value.contact;
-    console.log(content)
-    console.log(contact)
     //先进行表单非空验证
     if (content.length == 0) {
       wx.showToast({
@@ -34,7 +32,6 @@ Page({
         duration: 800
       })
     } else {
-      console.log("正在反馈")
       wx.showLoading({
         title: '正在反馈',
       })
