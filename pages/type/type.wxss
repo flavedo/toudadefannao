@@ -1,6 +1,7 @@
 .tip {
   text-align: center;
   background: #f5f5f5;
+  overflow: hidden;
 }
 
 .tip-top {
@@ -21,7 +22,7 @@
 .tip-item{
   background: #fff;
   width: 100%;
-  height: 120rpx;
+  height: 140rpx;
   border: none;
   padding: 0;
   border-radius: 0;
@@ -61,4 +62,9 @@
   width: 100%;
   height: 15rpx;
   background: none;
+}
+
+.ad {
+  margin: 10rpx 30rpx;
+  border-radius: 10rpx;
 }
