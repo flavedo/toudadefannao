@@ -1,16 +1,22 @@
 <view class="top">
-  <view class="books" 
-    wx:for="{{ books }}"
-    wx:for-item="book"
-    wx:key='{{ book.key }}'
-    bindtap='tapbook'
-    data-book="{{ book.bookType }}">
+  <view class='top-bg'></view>
+  <view class="top-title">头大的烦恼</view>
+  <view class='tip'>不积硅步,无以至千里</view>
+  <view class='top-con'>
+    <view class="books" 
+      wx:for="{{ books }}"
+      wx:for-item="book"
+      wx:key='{{ book.key }}'
+      bindtap='tapbook'
+      data-book="{{ book.bookType }}">
+      <image class="book-image"
+        mode="aspectFit"
+        src="../../lib/image/{{book.image}}.jpg">
+      </image>
 
-    <image class="book-image"
-      mode="aspectFit"
-      src="../../lib/image/{{book.image}}.jpg">
-    </image>
-
-    <view> {{book.name}} </view>
+      <view class='book-desc'> {{book.name}} </view>
+    </view>
+    <ad class='ad' unit-id="adunit-090a38b8c9454e76"></ad>
   </view>
+  
 </view>

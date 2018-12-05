@@ -1,0 +1,36 @@
+.top {
+  width: 100%;
+  text-align: center;
+}
+
+.icon {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin-top: 200rpx;
+}
+
+.wechat {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: top;
+  margin-right: 10rpx;
+  margin-top: 14rpx;
+}
+
+.auth {
+  text-align: center;
+  background: rgb(79, 189, 96);
+  width: 80%;
+  height: 85rpx;
+  border: none;
+  padding: 0;
+  color: #f7f7f7;
+  font-size: 35rpx;
+  border-radius: 20;
+  margin-top: 500rpx; 
+}
+
+.auth-text {
+  height: 100%;
+}

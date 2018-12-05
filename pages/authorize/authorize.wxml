@@ -1,0 +1,8 @@
+
+<view class='top'>
+  <image class='icon' src='/lib/image/share.png' mode='aspectFill'></image>
+  <button class="auth" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+    <image class="wechat" src='/lib/image/wechat.png'></image>
+    <text class='auth-text'>微信授权登录</text>
+  </button>
+</view>

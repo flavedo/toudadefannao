@@ -9,19 +9,25 @@ Page({
     nickName: ''
   },
 
+  onLoad() {
+    app.login()
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#166888'
+    })
+    let { avatarUrl, nickName } = app.globalData.userInfo
+    let isAutoPage = getAutoPage()
+    let isLastNextBtn = getLastNextBtn()
+    this.setData({
+      isAutoPage,
+      isLastNextBtn,
+      avatarUrl,
+      nickName
+    })
+  },
+
   onShow: function () {
-    if (app.login()) {
-      let avatarUrl = app.globalData.userInfo.avatarUrl
-      let nickName = app.globalData.userInfo.nickName
-      let isAutoPage = getAutoPage()
-      let isLastNextBtn = getLastNextBtn()
-      this.setData({
-        isAutoPage,
-        isLastNextBtn,
-        avatarUrl,
-        nickName
-      })
-    }
+      
   },
 
   tapSwitch: function() {

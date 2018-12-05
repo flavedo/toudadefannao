@@ -200,14 +200,12 @@ const getShareInfo = () => {
 
 const getAutoPage = () => {
   var result = wx.getStorageSync("autoPage")
-  console.log(result)
   if (typeof (result) == "undefined" || result == null || result.length == 0)
     return false
   return result
 }
 
 const setAutoPage = (result) => {
-  console.log(result)
   try {
     wx.setStorageSync("autoPage", result)
   } catch (e) {

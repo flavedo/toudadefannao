@@ -39,6 +39,10 @@ Page({
 
   onLoad() {
     app.login()
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: '#166888'
+    })
   },
 
   tapbook: function(e) {

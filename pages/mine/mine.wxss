@@ -10,39 +10,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50rpx; 
+  height: 400rpx;
+  width: 100%;
+  background: #166888;
 }
 
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
-  margin: 20rpx;
+  margin-top: 130rpx;
   border-radius: 50%;
-}
-
-.userinfo-btn {
-  border: none;
-  width: 128rpx;
-  height: 128rpx;
-  margin-top: 20rpx;
-  margin-bottom: 163rpx;
-  padding: 0;
-  border-radius: 50%;
-}
-
-.userinfo-btn::after{
-  border:none;
-}
-
-.userinfo-default-image {
-  width: 100%;
-  height: 100%;
 }
 
 .userinfo-nickname {
-  color: #aaa;
+  color: #eeeded;
   font-size: 35rpx;
-  margin-bottom: 100rpx; 
+  margin-top: 20rpx;
 }
 
 .divider {

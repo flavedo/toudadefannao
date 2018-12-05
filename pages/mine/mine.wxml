@@ -11,12 +11,15 @@
     <switch class="switch-right" checked='{{isAutoPage}}' bindchange='tapSwitch' color="#1c87b0"></switch>
   </view>
   
+  <view class="divider"></view>
+
    <view class="switch">
     <view class="switch-left">左右换页按钮</view>
     <switch class="switch-right" checked='{{isLastNextBtn}}' bindchange='tapLastNext' color="#1c87b0"></switch>
   </view>
 
   <view class="divider"></view>
+
   <view class="feedback">
     <button class="feedback-left" bindtap='tapFeedback'>吐个槽</button>
   </view>
