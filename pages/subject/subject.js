@@ -74,7 +74,7 @@ Page({
   loadPage() {
     let { bookType, subjectType, page, count } = this.$data
     let self = this
-    console.log('loadPage', page, count)
+    //console.log('loadPage', page, count)
     if(page >= 0 && page < count) {
       getSubjectData(bookType, subjectType, app.getUserid(), page).then(subject => {
         self.showPage(subject, count)
@@ -102,7 +102,7 @@ Page({
       userAnswer: '',
       rightAnswer: '',
       showCommitBtn: false,
-      isCollect: false
+      //isCollect: false
     })
 
     if (this.data.isDatiModel) {
@@ -118,6 +118,7 @@ Page({
     checkCollect(bookType, subject, app.getUserid()).then(res => {
       this.setData({ isCollect: true })
     }).catch(err => {
+      console.log(err)
       this.setData({ isCollect: false })
     })
   },

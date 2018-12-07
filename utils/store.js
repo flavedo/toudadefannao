@@ -63,7 +63,7 @@ const addCollect = (bookType, subject, userid) => new Promise((resolve, reject) 
     reject("收藏已存在")
   }).catch(todos => {
     const query = Bmob.Query('collect')
-    query.set("bookType", bookType)
+    query.set("bookType", bookType + '')
     query.set("questionNum", questionNum + '' )
     query.set("questionType", questionType + '')
     query.set("userid", userid)
@@ -80,7 +80,7 @@ const addCollects = (bookType, subjects, userid) => new Promise((resolve, reject
   for (let i in subjects) {
     console.log(bookType, subjects[i], userid)
     var query = Bmob.Query('collect');
-    query.set("bookType", bookType)
+    query.set("bookType", bookType + '')
     query.set("questionNum", subjects[i].questionNum + '')
     query.set("questionType", subjects[i].questionType + '')
     query.set("userid", userid)
@@ -97,10 +97,10 @@ const addCollects = (bookType, subjects, userid) => new Promise((resolve, reject
 const deleteCollect = (bookType, subject, userid) => new Promise((resolve, reject) => {
   let { questionNum, questionType } = subject
   const query = Bmob.Query('collect')
-  query.equalTo("bookType", "==", bookType)
-  query.equalTo("questionNum", "==", questionNum)
-  query.equalTo("questionType", "==", questionType)
-  query.equalTo("userid", "==", userid)
+  query.equalTo("bookType", "==", bookType + '')
+  query.equalTo("questionNum", "==", questionNum + '')
+  query.equalTo("questionType", "==", questionType + '')
+  query.equalTo("userid", "==", userid + '')
   query.find().then(todos => {
     todos.destroyAll().then(res => {
       resolve(res)
@@ -113,10 +113,10 @@ const deleteCollect = (bookType, subject, userid) => new Promise((resolve, rejec
 const checkCollect = (bookType, subject, userid) => new Promise((resolve, reject) => {
   let { questionNum, questionType } = subject
   const query = Bmob.Query('collect')
-  query.equalTo("bookType", "==", bookType)
-  query.equalTo("questionNum", "==", questionNum)
-  query.equalTo("questionType", "==", questionType)
-  query.equalTo("userid", "==", userid)
+  query.equalTo("bookType", "==", bookType + '')
+  query.equalTo("questionNum", "==", questionNum + '')
+  query.equalTo("questionType", "==", questionType + '')
+  query.equalTo("userid", "==", userid + '')
   query.find().then(res => {
     res.length > 0 ? resolve(res) : reject(res)
   }).catch(err => {
@@ -126,8 +126,8 @@ const checkCollect = (bookType, subject, userid) => new Promise((resolve, reject
 
 const countCollect = (bookType, userid) => new Promise((resolve, reject) => {
   const query = Bmob.Query('collect')
-  query.equalTo("bookType", "==", bookType)
-  query.equalTo("userid", "==", userid)
+  query.equalTo("bookType", "==", bookType + '')
+  query.equalTo("userid", "==", userid + '')
   query.count().then(res => {
     console.log('countCollect', res)
     resolve(res)
@@ -140,8 +140,8 @@ const loadCollectData = (bookType, userid) => new Promise((resolve, reject) => {
   loadBook(bookType).then(allSubjects => {
     let allLength = allSubjects.length
     const query = Bmob.Query('collect')
-    query.equalTo("bookType", "==", bookType)
-    query.equalTo("userid", "==", userid)
+    query.equalTo("bookType", "==", bookType + '')
+    query.equalTo("userid", "==", userid + '')
     query.limit(allLength)
     
     query.find().then(res => {
