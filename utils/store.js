@@ -64,8 +64,8 @@ const addCollect = (bookType, subject, userid) => new Promise((resolve, reject) 
   }).catch(todos => {
     const query = Bmob.Query('collect')
     query.set("bookType", bookType)
-    query.set("questionNum", questionNum)
-    query.set("questionType", questionType)
+    query.set("questionNum", questionNum + '' )
+    query.set("questionType", questionType + '')
     query.set("userid", userid)
     query.save().then(res => {
       resolve(res.objectId)
@@ -73,6 +73,25 @@ const addCollect = (bookType, subject, userid) => new Promise((resolve, reject) 
       reject(err)
     })
   })
+})
+
+const addCollects = (bookType, subjects, userid) => new Promise((resolve, reject) => {
+  const queryArray = new Array();
+  for (let i in subjects) {
+    console.log(bookType, subjects[i], userid)
+    var query = Bmob.Query('collect');
+    query.set("bookType", bookType)
+    query.set("questionNum", subjects[i].questionNum + '')
+    query.set("questionType", subjects[i].questionType + '')
+    query.set("userid", userid)
+    queryArray.push(query);
+  }
+
+  Bmob.Query('collect').saveAll(queryArray).then(result => {
+    resolve(result)
+  }).catch(err => {
+    reject(err)
+  });
 })
 
 const deleteCollect = (bookType, subject, userid) => new Promise((resolve, reject) => {
@@ -269,6 +288,7 @@ module.exports = {
   getSubjectDatas,
   getSubjectCount,
   addCollect,
+  addCollects,
   deleteCollect,
   checkCollect,
   clearStore,

@@ -55,6 +55,13 @@ Page({
     app.aldstat.sendEvent("mine_feedback")
   },
 
+  tapChangelog: function() {
+    wx.navigateTo({
+      url: "../../pages/changelog/changelog"
+    })
+    app.aldstat.sendEvent("mine_changelog")
+  },
+
   onShareAppMessage: function () {
 	  app.aldstat.sendEvent("mine_share")
     return getShareInfo()

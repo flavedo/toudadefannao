@@ -24,6 +24,7 @@ Page({
   submitForm: function (e) {
     var content = e.detail.value.content;
     var contact = e.detail.value.contact;
+    var userInfo = app.getUserInfo()
     var userid = app.getUserid()
     //先进行表单非空验证
     if (content.length == 0) {
@@ -36,7 +37,7 @@ Page({
       wx.showLoading({
         title: '正在反馈',
       })
-      sendFeedback(content, contact, userid).then(() =>{
+      sendFeedback(content, contact, userid, userInfo.nickName, userInfo.gender).then(() =>{
         this.setData({
           content: '',
           contact: '',

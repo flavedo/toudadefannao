@@ -44,22 +44,23 @@ App({
       success: function (res) {
         self.globalData.userInfo = res.userInfo
         wx.setStorageSync('userInfo', self.globalData.userInfo)
-        self.getUserid()
+        self.checkUserid()
       },
-      fail: function (res) {
+      fail: function (err) {
         self.gotoAuthorize()        
       }
     })
     return false
   },
 
-  getUserid() {
+  checkUserid() {
     Bmob.User.auth().then(res => {
       this.globalData.userid = res.objectId
       this.globalData.sessionToken = res.sessionToken
       wx.setStorageSync('userid', this.globalData.userid)
       this.gotoHomePage()
     }).catch(err => {
+      console.log("登录失败", err)
       wx.showModal({
         title: '提示',
         showCancel: false,
@@ -82,5 +83,9 @@ App({
 
   getUserid() {
     return this.globalData.userid
+  },
+
+  getUserInfo() {
+    return this.globalData.userInfo
   }
 })

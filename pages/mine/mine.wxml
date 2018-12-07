@@ -19,9 +19,16 @@
   </view>
 
   <view class="divider"></view>
+  
+  <view class="feedback">
+    <button class="feedback-left" bindtap='tapChangelog'>更新日志</button>
+  </view>
+
+  <view class="divider"></view>
 
   <view class="feedback">
     <button class="feedback-left" bindtap='tapFeedback'>吐个槽</button>
   </view>
   <view class="divider"></view>
+
 </view>

@@ -106,11 +106,13 @@ const setLastNextBtn = (result) => {
   }
 }
 
-const sendFeedback = (content, contact, userid) => new Promise((resolve, reject) => {
+const sendFeedback = (content, contact, userid, nickName, gender) => new Promise((resolve, reject) => {
   const query = Bmob.Query('feedback')
   query.set("contact", contact)
   query.set("content", content)
   query.set("userid", userid)
+  query.set("nickName", nickName)
+  query.set("gender", gender > 0 ? 'male' : 'female')
   wx.getSystemInfo({
     success: function (res) {
       let mobileInfo = res.model + ''

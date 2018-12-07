@@ -1,0 +1,13 @@
+<view class='top'>
+  
+  <view class='item'>
+    <view class="left">●</view>
+    <view class='right'>之前据同学反映收藏题目会丢失的情况，现在将题目收藏保存至云端</view>
+  </view>
+
+  <view class='item'>
+    <view class="left">●</view>
+    <view class='right'>修复其他错误</view>
+  </view>
+  
+</view>

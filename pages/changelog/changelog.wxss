@@ -1,0 +1,15 @@
+
+.item{
+  display: flex;
+  margin: 20rpx;
+}
+
+.left {
+  text-align: center;
+  margin-top: 3rpx;
+}
+
+.right {
+  font-size: 36rpx;
+  margin-left: 20rpx; 
+}
