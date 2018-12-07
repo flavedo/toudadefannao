@@ -24,6 +24,7 @@ Page({
   submitForm: function (e) {
     var content = e.detail.value.content;
     var contact = e.detail.value.contact;
+    var userid = app.getUserid()
     //先进行表单非空验证
     if (content.length == 0) {
       wx.showToast({
@@ -35,7 +36,7 @@ Page({
       wx.showLoading({
         title: '正在反馈',
       })
-      sendFeedback(content, contact).then(() =>{
+      sendFeedback(content, contact, userid).then(() =>{
         this.setData({
           content: '',
           contact: '',
@@ -46,7 +47,7 @@ Page({
           icon: 'none'
         })
         app.aldstat.sendEvent("feedback_success")
-      }).catch(() =>{
+      }).catch((err) =>{
         wx.hideLoading()
         wx.showToast({
           title: '不好意思，反馈失败了！',

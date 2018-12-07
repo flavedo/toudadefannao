@@ -22,7 +22,7 @@
 .tip-item{
   background: #fff;
   width: 100%;
-  height: 140rpx;
+  height: 130rpx;
   border: none;
   padding: 0;
   border-radius: 0;
@@ -65,6 +65,6 @@
 }
 
 .ad {
-  margin: 10rpx 30rpx;
+  margin: 10rpx 20rpx 0 30rpx;
   border-radius: 10rpx;
 }

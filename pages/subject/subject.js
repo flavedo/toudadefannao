@@ -1,6 +1,6 @@
-// pages/subject/subject.js
+const { getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage, getLastNextBtn } = require('../../utils/util.js')
+const { setUserOptions, getUserOptions, getSubjectData, getSubjectCount, addCollect, deleteCollect, checkCollect, clearStore } = require('../../utils/store.js')
 
-const { loadTypeBook, loadCollect, saveCollect, getBookName, storeSubjectDone, getSubjectDone, getShareInfo, getAutoPage, getLastNextBtn} = require('../../utils/util.js')
 const app = getApp()
 var touchDot = 0 // 触摸时的原点
 var time = 0 // 时间记录，用于滑动时且时间小于1s则执行左右滑动
@@ -8,7 +8,6 @@ var interval = '' // 记录/清理 时间记录
 var switchInterval = '' // 记录/清理 切页记录
 
 Page({
-
   data: {
     isDatiModel: true,
     subject: {},
@@ -20,19 +19,16 @@ Page({
     showCommitBtn: false,
     userAnswer: '',
     rightAnswer: '',
-    isShowLastNextBtn: false,
-    isCollect: false
+    isShowLastNextBtn: false
   },
 
   $data: {
     bookType: '',
-    subjectType: '', // all、single、multi、judge、collect、wrong	
-    subjectDatas: [],
-    collectDatas: [],
-    userOptions: [],
+    subjectType: '', // all、single、multi、judge、collect、wrong
     page: 0,
+    count: 0,
     hasCheckHistory: false,
-    isAutoPage: true
+    isAutoPage: true,
   },
 
   onShow: function() {
@@ -45,87 +41,96 @@ Page({
   },
 
   onLoad: function (options) {
+    clearStore()
     this.$data.bookType = options.bookType
     this.$data.subjectType = options.subjectType
     this.$data.isAutoPage = getAutoPage()
-    this.checkBookData()
+    this.loadPageCount()
   },
 
-  checkBookData: function () {
-    if (this.$data.subjectDatas && this.$data.subjectDatas.length > 0) {
-      this.loadPage()
-    } else {
-      wx.showLoading({ title: '正在加载' })
-      loadTypeBook(this.$data.bookType, this.$data.subjectType).then(subjects => {
-        this.$data.subjectDatas = subjects
-        if (!subjects || subjects.length == 0) {
-          wx.hideLoading()
-          wx.showModal({
-            content: '题目数量为空',
-            showCancel: false,
-            success: function(res) {
-              wx.navigateBack()
-            }
-          })
-          return;
-        }
-        console.log("subjects.length " + subjects.length)
-        loadCollect(this.$data.bookType).then(collects => {
-          wx.hideLoading()
-          this.$data.collectDatas = collects
-          this.loadPage()
+  loadPageCount() {
+    let { bookType, subjectType } = this.$data
+    let self = this
+    getSubjectCount(bookType, subjectType, app.getUserid()).then(count => {
+      console.log('count', count)
+      this.$data.count = count
+      if (count <= 0) {
+        wx.showModal({
+          content: '题目数量为空',
+          showCancel: false,
+          success: function (res) {
+            wx.navigateBack()
+          }
         })
-      }).catch(code => {
-        wx.hideLoading()
-        wx.showToast({ title: '加载错误' })
+      } else {
+        this.loadPage()
+      }
+    }).catch(err => {
+      console.log(err)
+      wx.showToast({ title: '加载错误' + err })
+    }) 
+  },
+
+  loadPage() {
+    let { bookType, subjectType, page, count } = this.$data
+    let self = this
+    console.log('loadPage', page, count)
+    if(page >= 0 && page < count) {
+      getSubjectData(bookType, subjectType, app.getUserid(), page).then(subject => {
+        self.showPage(subject, count)
+        self.checkCollect()
+        self.checkHistorySubject()
+      }).catch(err => {
+        console.log(err)
+        wx.showToast({ title: '加载错误' + err })
       })
     }
   },
 
-  loadPage: function () {
-    let bookData = this.$data.subjectDatas
-    if (this.$data.page >= 0 && this.$data.page < bookData.length) {
-      let rank = parseInt(this.$data.page / 100) + 1
-      let subject = bookData[this.$data.page]
-      let num = this.$data.page % 100 + 1
-      let rankcount = (this.$data.page < (parseInt(bookData.length / 100) * 100)) ? 100 : (bookData.length % 100)
-      let isCollect = false
-      for (var i = 0; i < this.$data.collectDatas.length; i++) {
-        if (this.$data.collectDatas[i].questionNum == subject.questionNum) {
-          isCollect = true
-          break;
-        }
-      }
-      this.setData({
-        subject,
-        rank,
-        num,
-        rankcount,
-        rightAnswerTip: false,
-        wrongAnswerTip: false,
-        userAnswer: '',
-        rightAnswer: '',
-        showCommitBtn: false,
-        isCollect
-      })
-      
-      if (this.data.isDatiModel) {
-        this.showDatiModel()
-      } else {
-        this.showBetiModel()
-      }
-      this.checkHistorySubject()
+  showPage: function (subject) {
+    let { bookType, subjectType, page, count } = this.$data
+    let rank = parseInt(page / 100) + 1
+    let num = page % 100 + 1
+    let rankcount = (page < (parseInt(count / 100) * 100)) ? 100 : (count % 100)
+    this.setData({
+      subject,
+      rank,
+      num,
+      rankcount,
+      rightAnswerTip: false,
+      wrongAnswerTip: false,
+      userAnswer: '',
+      rightAnswer: '',
+      showCommitBtn: false,
+      isCollect: false
+    })
+
+    if (this.data.isDatiModel) {
+      this.showDatiModel()
+    } else {
+      this.showBetiModel()
     }
+  },
+
+  checkCollect() {
+    let { bookType } = this.$data
+    let { subject } = this.data
+    checkCollect(bookType, subject, app.getUserid()).then(res => {
+      this.setData({ isCollect: true })
+    }).catch(err => {
+      this.setData({ isCollect: false })
+    })
   },
 
   checkHistorySubject: function () {
-    if (this.$data.hasCheckHistory) {
+    let { hasCheckHistory, bookType, subjectType, page} = this.$data
+    if (hasCheckHistory) {
       return
     }
     this.$data.hasCheckHistory = true
-    let storePage = getSubjectDone(this.$data.bookType, this.$data.subjectType)
+    let storePage = getSubjectDone(bookType,subjectType)
     let that = this
-    if (!isNaN(storePage) && storePage != that.$data.page) {
+    if (!isNaN(storePage) && storePage != page) {
       wx.showModal({
         content: '是否回到上次做题的位置',
         success: function (res) {
@@ -141,13 +146,14 @@ Page({
   },
 
   onShareAppMessage: function () {
-	app.aldstat.sendEvent("subject_share")
+	  app.aldstat.sendEvent("subject_share")
     return getShareInfo()
   },
 
   tapOptionA: function () {
     let optionA = this.selectComponent("#optionA");
-    let userOption = this.$data.userOptions[this.$data.page]
+    let { bookType, subjectType, page } = this.$data
+    let userOption = getUserOptions(bookType, subjectType, page)
     if (this.data.isDatiModel && typeof (userOption) == "undefined") {
       if (this.data.subject.questionType != 3) {// 单选题或者判断题
         this.commitResult([0])
@@ -163,7 +169,8 @@ Page({
 
   tapOptionB: function () {
     let optionB = this.selectComponent("#optionB");
-    let userOption = this.$data.userOptions[this.$data.page]
+    let { bookType, subjectType, page } = this.$data
+    let userOption = getUserOptions(bookType, subjectType, page)
     if (this.data.isDatiModel && typeof (userOption) == "undefined") {
       if (this.data.subject.questionType != 3) {// 单选题或者判断题
         this.commitResult([1])
@@ -179,7 +186,8 @@ Page({
 
   tapOptionC: function () {
     let optionC = this.selectComponent("#optionC");
-    let userOption = this.$data.userOptions[this.$data.page]
+    let { bookType, subjectType, page } = this.$data
+    let userOption = getUserOptions(bookType, subjectType, page)
     if (this.data.isDatiModel && typeof (userOption) == "undefined") {
       if (this.data.subject.questionType != 3) {// 单选题或者判断题
         this.commitResult([2])
@@ -195,7 +203,8 @@ Page({
 
   tapOptionD: function () {
     let optionD = this.selectComponent("#optionD");
-    let userOption = this.$data.userOptions[this.$data.page]
+    let { bookType, subjectType, page } = this.$data
+    let userOption = getUserOptions(bookType, subjectType, page)
     if (this.data.isDatiModel && typeof (userOption) == "undefined") {
       if (this.data.subject.questionType != 3) {// 单选题或者判断题
         this.commitResult([3])
@@ -255,9 +264,11 @@ Page({
       })
       return
     }
+
+    let { bookType, subjectType, page } = this.$data
     this.setData({ showCommitBtn: false })
-    storeSubjectDone(this.$data.bookType, this.$data.subjectType, this.$data.page)
-    this.$data.userOptions[this.$data.page] = userOption
+    storeSubjectDone(bookType, subjectType, page)
+    setUserOptions(bookType, subjectType, page, userOption)
     this.showComfirmResult(userOption)
     if (userOption.sort().toString() == this.data.subject.answer.sort().toString()) {
       this.startAutoSwitchPage()
@@ -348,21 +359,21 @@ Page({
   },
 
   startAutoSwitchPage: function () {
-    let page = this.$data.page + 1
-    let bookData = this.$data.subjectDatas
-    let that = this
-    if (this.$data.isAutoPage && page < bookData.length) {
+    let { page, count, isAutoPage} = this.$data
+    page++;
+    let self = this
+    if (isAutoPage && page < count) {
       switchInterval = setInterval(function () {
-        that.$data.page = page
-        that.loadPage()
+        self.$data.page = page
+        self.loadPage()
         clearInterval(switchInterval)
       }, 500)
     }
   },
 
   showDatiModel: function () {
-    let userOption = this.$data.userOptions[this.$data.page]
-
+    let { bookType, subjectType, page } = this.$data
+    let userOption = getUserOptions(bookType, subjectType, page)
     if (typeof (userOption) != "undefined") {
       // 已经答过题
       this.showComfirmResult(userOption)
@@ -417,35 +428,27 @@ Page({
   },
 
   tapCollect: function() {
-    var isCollect = this.data.isCollect
-    var subject = this.data.subject
-    if(isCollect){
-      for (var i = 0; i < this.$data.collectDatas.length; i++) {
-        if (this.$data.collectDatas[i].questionNum == subject.questionNum) {
-          this.$data.collectDatas.splice(i, 1);
-          break;
-        }
-      }
-    } else {
-      this.$data.collectDatas.push(subject)
-    }
-    console.log("collectDatas: " + this.$data.collectDatas.length)
-    var that = this
-    saveCollect(this.$data.bookType, this.$data.collectDatas).then((res) => {
-      that.setData({
-        isCollect: !isCollect
-      })
-    }).catch(e => {
+    let { isCollect, subject } = this.data
+    let { bookType } = this.$data
+
+    let func = isCollect ? deleteCollect : addCollect
+    wx.showLoading({ title:"正在处理" })
+    func(this.$data.bookType, subject, app.getUserid()).then((res) => {
+      this.setData({ isCollect: !isCollect }) 
+      wx.hideLoading()
+    }).catch(err => {
+      wx.hideLoading()
       wx.showToast({
         title: !isCollect ? '收藏失败' : '移除失败'
       })
     })
-	  app.aldstat.sendEvent("subject_collect")
+    app.aldstat.sendEvent(!isCollect ? "subject_collect" : "subject_uncollect")
   },
 
   tapSheet: function() {
+    let { bookType, subjectType, page } = this.$data
 	  wx.navigateTo({
-		  url: "../../pages/sheet/sheet?bookType=" + this.$data.bookType
+      url: "../../pages/sheet/sheet?bookType=" + bookType + "&subjectType=" + subjectType + "&page=" + page
 	  })
 	  app.aldstat.sendEvent("subject_sheet")
   },
@@ -489,7 +492,8 @@ Page({
   },
   
   showLastSubject: function () {
-    let page = this.$data.page - 1
+    let { page, count } = this.$data
+    page = page - 1
     if (page >= 0) {
       this.$data.page = page
       this.loadPage()
@@ -503,9 +507,9 @@ Page({
   },
 
   showNextSubject: function () {
-    let page = this.$data.page + 1
-    let bookData = this.$data.subjectDatas
-    if (page < bookData.length) {
+    let { page, count} = this.$data
+    page = page + 1
+    if (page < count) {
       this.$data.page = page
       this.loadPage()
     } else {

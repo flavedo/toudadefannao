@@ -1,5 +1,6 @@
 // pages/sheet/sheet.js
 const { getShareInfo, getBookName } = require('../../utils/util.js')
+const { getSubjectDatas, getUserOptions } = require('../../utils/store.js')
 const app = getApp()
 
 Page({
@@ -11,8 +12,8 @@ Page({
   },
 
   onLoad: function (options) {
-    app.login()    
-    let { bookType } = this.options
+    app.login()
+    let { bookType, subjectType } = this.options
     this.showTitle(bookType)
     this.getSubjectData()
   },
@@ -24,17 +25,18 @@ Page({
   },
 
   getSubjectData: function() {
-    let pages = getCurrentPages();
-    if (pages.length > 1) {
-      let prePage = pages[pages.length - 2];
-      let subjectDatas = prePage.$data.subjectDatas
-      let userOptions = prePage.$data.userOptions
-      let currentIndex = parseInt(prePage.$data.page / 100)
-      let scrollTop = currentIndex * 100
+    let { bookType, subjectType, page } = this.options
+    getSubjectDatas(bookType, subjectType, app.getUserid()).then(subjects => {
+      let currentIndex = parseInt(page / 100)
+      let userOptions = []
+      for (let i in subjects) {
+        userOptions.push(getUserOptions(bookType, subjectType, i))
+      }
+      
       let subjectsList = []
       let optionsList = []
-      for (var i = 0, len = subjectDatas.length; i < len; i += 100) {
-        subjectsList.push(subjectDatas.slice(i, i + 100))
+      for (var i = 0, len = subjects.length; i < len; i += 100) {
+        subjectsList.push(subjects.slice(i, i + 100))
         optionsList.push(userOptions.slice(i, i + 100))
       }
 
@@ -43,7 +45,12 @@ Page({
         optionsList,
         currentIndex
       })
-    }
+    }).catch(err => {
+      console.log(err)
+      wx.showModal({
+        title: '加载出错'
+      })
+    })
   },
 
   tapBack: function() {
@@ -54,5 +61,5 @@ Page({
   onShareAppMessage: function () {
     app.aldstat.sendEvent("sheet_share")
     return getShareInfo()
-  }
+  },
 })

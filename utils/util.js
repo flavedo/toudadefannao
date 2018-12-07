@@ -3,7 +3,8 @@ const { lawBookData } = require('../lib/data/law.js')
 const { maoBookData } = require('../lib/data/mao.js')
 const { marxBookData } = require('../lib/data/marx.js')
 const { moralBookData } = require('../lib/data/moral.js')
-var Bmob = require('../utils/Bmob-1.6.1.min.js')
+var Bmob = require('Bmob-1.6.6.min.js')
+
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -21,129 +22,6 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const subjectComp = function (a, b) {
-  let val1 = parseInt(a.questionNum);
-  let val2 = parseInt(b.questionNum);
-  if (val1 < val2) {
-    return -1;
-  } else if (val1 > val2) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-const saveCollect = (bookType, collectDatas) => new Promise((resolve, reject) => {
-  wx.setStorage({
-    key: bookType + '-collect',
-    data: collectDatas,
-    success: function () {
-      resolve()
-    },
-    fail: function (res) {
-      reject(res)
-    }
-  })
-})
-
-const loadCollect = (bookType) => new Promise((resolve, reject) => {
-  wx.getStorage({
-    key: bookType + '-collect',
-    success: function (res) {
-      resolve(res.data)
-    },
-    fail: function (res) {
-      console.log('fail')
-      resolve([])
-    }
-  })
-})
-
-const loadBook = (bookType) => new Promise((resolve, reject) => {
-  try {
-    console.log("loadbook:" + bookType)
-    let subjects
-    switch (bookType) {
-      case 'marx':
-        subjects = marxBookData().sort(subjectComp)
-        resolve(subjects)
-        break
-      case 'law':
-        subjects = lawBookData().sort(subjectComp)
-        resolve(subjects)
-        break
-      case 'history':
-        subjects = historyBookData().sort(subjectComp)
-        resolve(subjects)
-        break
-      case 'mao':
-        subjects = maoBookData().sort(subjectComp)
-        resolve(subjects)
-        break
-      case 'moral':
-        subjects = moralBookData().sort(subjectComp)
-        resolve(subjects)
-        break
-      default:
-        reject()
-        break;
-    }
-  } catch (e) {
-    console.log('error')
-    reject(e)
-  }
-})
-
-// all、single、multi、judge、collect
-const loadTypeBook = (bookType, subjectType) => new Promise((resolve, reject) => {
-  console.log(subjectType)
-
-  switch (subjectType) {
-    case 'all':
-      loadBook(bookType).then(subjects => {
-        resolve(subjects)
-      }).catch(e => {
-        reject(e)
-      })
-      break
-    case 'single':
-      loadBook(bookType).then(subjects => {
-        resolve(subjects.filter(item => {
-          return item.questionType == 1
-        }))
-      }).catch(e => {
-        reject(e)
-      })
-      break
-    case 'judge':
-      loadBook(bookType).then(subjects => {
-        resolve(subjects.filter(item => {
-          return item.questionType == 2
-        }))
-      }).catch(e => {
-        reject(e)
-      })
-      break
-    case 'multi':
-      loadBook(bookType).then(subjects => {
-        resolve(subjects.filter(item => {
-          return item.questionType == 3
-        }))
-      }).catch(e => {
-        reject(e)
-      })
-      break
-    case 'collect':
-      return loadCollect(bookType).then(subjects => {
-        resolve(subjects)
-      }).catch(e => {
-        reject(e)
-      })
-    default:
-      reject('未知题目类型')
-      break
-  }
-})
 
 const storeSubjectDone = (bookType, subjectType, page) => {
   try {
@@ -215,14 +93,12 @@ const setAutoPage = (result) => {
 
 const getLastNextBtn = () => {
   var result = wx.getStorageSync("showLastNextBtn")
-  console.log(result)
   if (typeof (result) == "undefined" || result == null || result.length == 0)
     return true
   return result
 }
 
 const setLastNextBtn = (result) => {
-  console.log(result)
   try {
     wx.setStorageSync("showLastNextBtn", result)
   } catch (e) {
@@ -230,10 +106,11 @@ const setLastNextBtn = (result) => {
   }
 }
 
-const sendFeedback = (content, contact) => new Promise((resolve, reject) => {
+const sendFeedback = (content, contact, userid) => new Promise((resolve, reject) => {
   const query = Bmob.Query('feedback')
   query.set("contact", contact)
   query.set("content", content)
+  query.set("userid", userid)
   wx.getSystemInfo({
     success: function (res) {
       let mobileInfo = res.model + ''
@@ -248,7 +125,7 @@ const sendFeedback = (content, contact) => new Promise((resolve, reject) => {
         reject()
       })
     },
-    fail: function(res){
+    fail: function (res) {
       query.save().then(res => {
         resolve()
       }).catch(err => {
@@ -260,10 +137,6 @@ const sendFeedback = (content, contact) => new Promise((resolve, reject) => {
 
 module.exports = {
   formatTime,
-  loadTypeBook,
-  loadBook,
-  loadCollect,
-  saveCollect,
   getBookName,
   storeSubjectDone,
   getSubjectDone,
